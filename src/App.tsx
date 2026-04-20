@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as React from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -9,6 +9,7 @@ import Blog from "./pages/Blog";
 import Works from "./pages/Works";
 import ComingSoon from "./pages/ComingSoon";
 import { CTAButton, TextRoll } from "./components/SharedUI";
+import { LoaderLogo } from "./components/LoaderLogo";
 
 const font = "'Instrument Sans', sans-serif";
 
@@ -69,19 +70,53 @@ function Navbar(): React.JSX.Element {
 }
 
 export default function App(): React.JSX.Element {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/works" element={<Works />} />
-        <Route path="/coming-soon" element={<ComingSoon title="More Content" />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              backgroundColor: "#1e1e1e",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 9999,
+              pointerEvents: "all"
+            }}
+          >
+            <LoaderLogo />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <BrowserRouter>
+        <ScrollToTop />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/works" element={<Works />} />
+          <Route path="/coming-soon" element={<ComingSoon title="More Content" />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
