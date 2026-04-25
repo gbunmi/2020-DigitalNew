@@ -5,11 +5,14 @@ import React, { useState, useEffect } from 'react';
  * @param duration - How long (ms) to show the logo before starting the exit fade.
  * @param onComplete - Optional callback when the screen has fully disappeared.
  */
-export const SplashScreen = ({ duration = 2000, onComplete }: { duration?: number; onComplete?: () => void }) => {
+export const SplashScreen: React.FC<{ duration?: number; onComplete?: () => void }> = ({ duration = 2000, onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
+    // Prevent body scroll while splash is active
+    document.body.style.overflow = 'hidden';
+    
     // 1. Initial timer to start the fade exit
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
@@ -17,13 +20,17 @@ export const SplashScreen = ({ duration = 2000, onComplete }: { duration?: numbe
       // 2. Final timer to remove from DOM after CSS transition finishes
       const removeTimer = setTimeout(() => {
         setIsVisible(false);
+        document.body.style.overflow = ''; // Restore overflow
         if (onComplete) onComplete();
       }, 700); // Matches the 0.7s transition in the style below
 
       return () => clearTimeout(removeTimer);
     }, duration);
 
-    return () => clearTimeout(exitTimer);
+    return () => {
+      clearTimeout(exitTimer);
+      document.body.style.overflow = '';
+    };
   }, [duration, onComplete]);
 
   if (!isVisible) return null;

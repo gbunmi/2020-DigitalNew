@@ -15,11 +15,16 @@ const font = "'Instrument Sans', sans-serif";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
+
   useEffect(() => {
     if (hash) {
-      const element = document.getElementById(hash.replace('#', ''));
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        // Use a small timeout to ensure layout has settled
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
       }
     } else {
       window.scrollTo(0, 0);
@@ -29,6 +34,8 @@ function ScrollToTop() {
 }
 
 function Navbar(): React.JSX.Element {
+  const location = useLocation();
+  
   return (
     <motion.nav 
       initial={{ y: -100 }}
@@ -47,15 +54,19 @@ function Navbar(): React.JSX.Element {
         </Link>
       </div>
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: 600, fontSize: 14, color: "#1e1e1e" }}>
-        {["About", "Services", "Works", "Blog"].map((item) => (
-          <Link 
-            key={item}
-            to={`/${item.toLowerCase()}`} 
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            <TextRoll text={item} hoverColor="#d73a3b" />
-          </Link>
-        ))}
+        {["About", "Services", "Works", "Blog"].map((item) => {
+          const path = `/${item.toLowerCase()}`;
+          const isActive = location.pathname === path;
+          return (
+            <Link 
+              key={item}
+              to={path} 
+              style={{ color: isActive ? "#d73a3b" : "inherit", textDecoration: "none" }}
+            >
+              <TextRoll text={item} color={isActive ? "#d73a3b" : "inherit"} hoverColor="#d73a3b" />
+            </Link>
+          );
+        })}
         <Link to="/#contact" style={{ color: "inherit", textDecoration: "none" }}>
           <TextRoll text="Contact" hoverColor="#d73a3b" />
         </Link>
@@ -73,10 +84,21 @@ export default function App(): React.JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <>
+    <BrowserRouter>
+      <ScrollToTop />
+      <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
       <AnimatePresence mode="wait">
         {isLoading ? (
-          <SplashScreen onComplete={() => setIsLoading(false)} />
+          <SplashScreen 
+            key="splash"
+            onComplete={() => {
+              setIsLoading(false);
+              // Standard reset
+              window.scrollTo(0, 0);
+              // Secondary reset to ensure it sticks after layout
+              setTimeout(() => window.scrollTo(0, 0), 0);
+            }} 
+          />
         ) : (
           <motion.div
             key="app-content"
@@ -84,22 +106,18 @@ export default function App(): React.JSX.Element {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <BrowserRouter>
-              <ScrollToTop />
-              <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/works" element={<Works />} />
-                <Route path="/coming-soon" element={<ComingSoon title="More Content" />} />
-              </Routes>
-            </BrowserRouter>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/works" element={<Works />} />
+              <Route path="/coming-soon" element={<ComingSoon title="More Content" />} />
+            </Routes>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </BrowserRouter>
   );
 }
