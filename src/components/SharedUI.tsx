@@ -24,7 +24,7 @@ export function Placeholder({ width, height, label, radius, style }: Placeholder
         width: width || "100%",
         height: height || "100%",
         backgroundColor: "#c4c4c4",
-        borderRadius: radius || 0,
+        borderRadius: radius !== undefined ? radius : "24px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -149,59 +149,33 @@ export function ContactSection(): React.JSX.Element {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   return (
-    <section id="contact" className="bg-[#f3f3f3] w-full relative z-10 border-t border-black/[0.03]">
-      <div className="px-6 md:px-10 py-20 md:py-32 flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-20 max-w-[1440px] mx-auto">
-        <div className="flex flex-col gap-8 w-full lg:max-w-[602px] text-left">
+    <section id="contact" style={{ backgroundColor: "#f3f3f3", width: "100%", position: "relative", zIndex: 10 }}>
+      <div style={{ padding: "120px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, maxWidth: 1440, margin: "0 auto" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 602 }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-bold text-5xl md:text-7xl lg:text-[100px] leading-[1.1] lg:leading-[88px] tracking-tight lg:tracking-[-3px] text-[#1e1e1e]"
+            style={{ fontWeight: 700, fontSize: 100, lineHeight: "88px", letterSpacing: -3, color: "#1e1e1e", margin: 0, fontFamily: font }}
           >
             Let's have a conversation
           </motion.h2>
-          <p className="font-normal text-base md:text-lg text-[#5d5d5d] max-w-[470px]">
+          <p style={{ fontWeight: 400, fontSize: 16, color: "#5d5d5d", margin: 0, maxWidth: 470, fontFamily: font }}>
             Whether you have a project ready or just want to talk something through, get in touch. You'll hear back within one business day.
           </p>
         </div>
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-white rounded-2xl p-6 md:p-10 w-full md:max-w-[603px] flex flex-col gap-8 shadow-[0_12px_40px_rgba(0,0,0,0.04)]"
+          style={{ backgroundColor: "white", borderRadius: 12, padding: "32px 16px", width: 603, display: "flex", flexDirection: "column", gap: 32, boxSizing: "border-box", flexShrink: 0, boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}
         >
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <input 
-                type="text" 
-                placeholder="Your name" 
-                value={form.name} 
-                onChange={(e) => setForm({ ...form, name: e.target.value })} 
-                className="h-14 border border-[#cecece] rounded-xl px-5 text-base outline-none w-full focus:border-[#d73a3b] focus:ring-1 focus:ring-[#d73a3b]/20 transition-all"
-                style={{ fontFamily: font }}
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <input 
-                type="email" 
-                placeholder="Your email" 
-                value={form.email} 
-                onChange={(e) => setForm({ ...form, email: e.target.value })} 
-                className="h-14 border border-[#cecece] rounded-xl px-5 text-base outline-none w-full focus:border-[#d73a3b] focus:ring-1 focus:ring-[#d73a3b]/20 transition-all"
-                style={{ fontFamily: font }}
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <textarea 
-                placeholder="Leave a message" 
-                value={form.message} 
-                onChange={(e) => setForm({ ...form, message: e.target.value })} 
-                className="h-48 border border-[#cecece] rounded-xl p-5 text-base outline-none resize-none w-full focus:border-[#d73a3b] focus:ring-1 focus:ring-[#d73a3b]/20 transition-all"
-                style={{ fontFamily: font }}
-              />
-            </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <input type="text" placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ height: 48, border: "0.5px solid #cecece", borderRadius: 8, padding: "0 16px", fontSize: 14, outline: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
+            <input type="email" placeholder="Your email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={{ height: 48, border: "0.5px solid #cecece", borderRadius: 8, padding: "0 16px", fontSize: 14, outline: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
+            <textarea placeholder="Leave a message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ height: 196, border: "0.5px solid #cecece", borderRadius: 8, padding: 16, fontSize: 14, outline: "none", resize: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
           </div>
-          <CTAButton label="Send message" fullWidth large onClick={() => console.log("Form submitted", form)} />
+          <CTAButton label="Send" fullWidth large onClick={() => console.log("Form submitted", form)} />
         </motion.div>
       </div>
     </section>
@@ -209,78 +183,69 @@ export function ContactSection(): React.JSX.Element {
 }
 
 export function Footer(): React.JSX.Element {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-[#d73a3b] w-full relative z-10 overflow-hidden">
-      <div className="px-6 md:px-10 py-16 flex flex-col gap-16 max-w-[1440px] mx-auto text-white">
-        <div className="flex flex-col gap-12 md:gap-20">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-10">
-            <div className="flex-1 flex flex-col gap-8">
-              <span className="font-medium text-base leading-relaxed tracking-wider uppercase text-white/60">Reach us</span>
-              <div className="flex flex-col gap-6">
+    <footer id="footer" style={{ backgroundColor: "#d73a3b", width: "100%", position: "relative", zIndex: 10 }}>
+      <div style={{ padding: "64px 40px", display: "flex", flexDirection: "column", gap: 32, maxWidth: 1440, margin: "0 auto" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24 }}>
+              <span style={{ fontWeight: 500, fontSize: 16, lineHeight: "26px", letterSpacing: -0.08, color: "white", fontFamily: font }}>Reach us</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                 {["Instagram", "LinkedIn", "Behance", "Email"].map((l) => (
                   <a 
                     key={l} 
                     href="#" 
-                    className="text-white no-underline inline-block group"
+                    style={{ color: "white", textDecoration: "none", display: "inline-block" }}
                   >
-                    <TextRoll text={l} fontSize={28} fontWeight={600} hoverColor="rgba(255,255,255,0.6)" />
+                    <TextRoll text={l} fontSize={24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />
                   </a>
                 ))}
               </div>
             </div>
-            
-            <div className="flex-1 flex flex-col items-center justify-center">
-              <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 inline-flex flex-col items-center cursor-pointer border border-white/20"
-              >
-                <span className="text-white font-bold text-4xl md:text-5xl tracking-tighter" style={{ fontFamily: font }}>20/20</span>
-                <span className="text-white/60 text-xs font-bold tracking-[0.2em] uppercase mt-2">Digital</span>
-              </motion.div>
+            <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <motion.img 
+                whileHover={{ rotate: [0, -5, 5, 0] }}
+                src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
+                alt="20/20 Digital Logo"
+                referrerPolicy="no-referrer"
+                style={{ height: 40, width: "auto", cursor: "pointer", display: "block" }}
+              />
             </div>
-
-            <div className="flex-1 flex flex-col gap-8 items-start md:items-end w-full">
-              <span className="font-medium text-base leading-relaxed tracking-wider uppercase text-white/60">Navigation</span>
-              <div className="flex flex-col gap-6 items-start md:items-end">
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24, alignItems: "flex-end" }}>
+              <span style={{ fontWeight: 500, fontSize: 16, lineHeight: "26px", letterSpacing: -0.08, color: "white", fontFamily: font }}>Navigation</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24, alignItems: "flex-end" }}>
                 {["About", "Services", "Experience", "Blog", "Contact"].map((l) => (
                   <Link 
                     key={l}
-                    to={l === "Contact" ? "/#contact" : l === "Experience" ? "/about" : `/${l.toLowerCase()}`} 
-                    className="text-white no-underline inline-block group"
+                    to={l === "Contact" ? "#contact" : l === "Experience" ? "/about" : `/${l.toLowerCase()}`} 
+                    style={{ color: "white", textDecoration: "none", display: "inline-block" }}
                   >
-                    <TextRoll text={l} fontSize={28} fontWeight={600} hoverColor="rgba(255,255,255,0.6)" />
+                    <TextRoll text={l} fontSize={24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />
                   </Link>
                 ))}
               </div>
             </div>
           </div>
-          
           <motion.div 
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            className="w-full h-px bg-white/10 origin-center"
+            style={{ width: "100%", height: 1, backgroundColor: "rgba(255,255,255,0.2)", transformOrigin: "center" }} 
           />
         </div>
-
-        <div className="flex flex-col md:flex-row justify-between items-center gap-10 text-base tracking-tight">
-          <span className="flex-1 font-medium text-white/50 text-center md:text-left order-2 md:order-1">
-            © {currentYear} 20/20 Digital. All rights reserved.
-          </span>
-          <div className="flex-1 flex justify-center order-1 md:order-2">
-            <button
-              className="font-bold text-white cursor-pointer hover:text-white/70 transition-colors uppercase tracking-widest text-xs"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, letterSpacing: -0.32 }}>
+          <span style={{ flex: 1, fontWeight: 500, color: "rgba(255,255,255,0.8)", fontFamily: font }}>© 2026 20/20 Digital</span>
+          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+            <motion.span
+              style={{ fontWeight: 700, color: "white", cursor: "pointer", display: "inline-block" }}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              Back to top
-            </button>
+              <TextRoll text="Back to top" fontSize={16} fontWeight={700} hoverColor="rgba(255,255,255,0.6)" />
+            </motion.span>
           </div>
-          <div className="flex-1 flex justify-center md:justify-end gap-8 order-3">
-            <a href="#" className="no-underline text-white/50 hover:text-white transition-colors text-sm">Privacy Policy</a>
-            <a href="#" className="no-underline text-white/50 hover:text-white transition-colors text-sm">Terms of Service</a>
-          </div>
+          <a href="#" style={{ flex: 1, display: "flex", justifyContent: "flex-end", textDecoration: "none" }}>
+            <TextRoll text="Privacy Policy" fontSize={16} fontWeight={700} color="white" hoverColor="rgba(255,255,255,0.6)" />
+          </a>
         </div>
       </div>
     </footer>

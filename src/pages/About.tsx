@@ -1,9 +1,10 @@
 import { type FC, type ReactNode } from 'react';
+import { motion } from 'motion/react';
 import './About.css';
 import { ContactSection, Footer } from '../components/SharedUI';
 
 // ---- Asset slots: replace with your imports / URLs ---------------------------
-const LOGO_LIGHT_URL = ''; // big wordmark above the bio
+const LOGO_LIGHT_URL = 'https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg'; // big wordmark above the bio
 const HERO_IMAGE_URL = 'https://raw.githubusercontent.com/gbunmi/images/main/About%20us%20(2).jpg'; // boardroom / meeting photo
 const FOUNDER_IMAGE_URL = ''; // Jamie Gerrard photo
 
@@ -96,15 +97,32 @@ const Hero: FC = () => (
   <section className="hero" id="top">
     <div className="container">
       <div className="hero__copy">
-        <h1 className="display-l">Making better products by fixing what&rsquo;s behind them.</h1>
-        <p className="lede">
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="display-l"
+        >
+          Making better products by fixing what&rsquo;s behind them.
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="lede"
+        >
           From product flows to team dynamics, we uncover the friction points holding you back and
           work with you to resolve them in a way that lasts.
-        </p>
+        </motion.p>
       </div>
-      <div className="hero__image-wrap">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="hero__image-wrap"
+      >
         <ImgSlot src={HERO_IMAGE_URL} label="Hero image" className="hero__image" />
-      </div>
+      </motion.div>
     </div>
   </section>
 );
@@ -112,10 +130,25 @@ const Hero: FC = () => (
 const Focus: FC = () => (
   <section className="focus" id="services">
     <div className="container">
-      <h2 className="display-m focus__title">What we focus on</h2>
+      <motion.h2 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="display-m focus__title"
+      >
+        What we focus on
+      </motion.h2>
       <div className="focus__grid">
-        {FOCUS_AREAS.map((f) => (
-          <article key={f.n} className="focus-card">
+        {FOCUS_AREAS.map((f, i) => (
+          <motion.article 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            whileHover={{ y: -8, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+            key={f.n} 
+            className="focus-card"
+          >
             <div className="focus-card__inner">
               <span className="focus-card__num-top">{f.n}</span>
               <div className="focus-card__body">
@@ -126,7 +159,7 @@ const Focus: FC = () => (
             <span className="focus-card__num-ghost" aria-hidden="true">
               {f.n}
             </span>
-          </article>
+          </motion.article>
         ))}
       </div>
     </div>
@@ -138,10 +171,17 @@ const Stats: FC = () => (
     <div className="container">
       <div className="stats__row">
         {STATS.map((s, i) => (
-          <div key={i} className="stat">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            key={i} 
+            className="stat"
+          >
             <div className="stat__value">{s.value}</div>
             <div className="stat__label">{s.label}</div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -153,7 +193,15 @@ const Services: FC = () => (
     <div className="container">
       <div className="services__row">
         {SERVICE_TAGS.map((t, i) => (
-          <Pill key={i}>{t}</Pill>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.05, duration: 0.4 }}
+            key={i}
+          >
+            <Pill key={i}>{t}</Pill>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -164,8 +212,21 @@ const Founder: FC = () => (
   <section className="founder">
     <div className="container">
       <div className="founder__divider" />
-      <h2 className="display-m founder__title">Meet our founder</h2>
-      <div className="founder__card">
+      <motion.h2 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="display-m founder__title"
+      >
+        Meet our founder
+      </motion.h2>
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="founder__card"
+      >
         <div className="founder__photo">
           <ImgSlot src={FOUNDER_IMAGE_URL} label="Founder photo" className="founder__img" />
           <div className="founder__name-block">
@@ -184,7 +245,7 @@ const Founder: FC = () => (
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   </section>
 );
@@ -196,8 +257,7 @@ const Bio: FC = () => (
         <ImgSlot src={LOGO_LIGHT_URL} label="20/20 Digital" className="bio__logo" />
         <div className="bio__copy">
           <p className="bio__lede">
-            25 years working with organizations to understand what&rsquo;s actually happening with
-            their digital products, service experiences, and the teams behind them.
+            25 years working with organizations to understand what&rsquo;s actually happening with their digital products, service experiences, and the teams behind them.
           </p>
           <p>
             20/20 Digital was founded in 2017 and has worked with organizations across industries that

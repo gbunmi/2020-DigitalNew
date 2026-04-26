@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import { motion } from 'motion/react';
 import './Services.css';
 import { ContactSection, Footer } from '../components/SharedUI';
 
@@ -11,13 +12,13 @@ import { ContactSection, Footer } from '../components/SharedUI';
    ============================================================================= */
 
 // ---- Asset slots ------------------------------------------------------------
-const LOGO_DARK_URL = ''; // small wordmark in nav
-const LOGO_FOOTER_URL = ''; // wordmark in footer
+const LOGO_DARK_URL = 'https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg'; // small wordmark in nav
+const LOGO_FOOTER_URL = 'https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg'; // wordmark in footer
 const SERVICE_IMAGES: Record<ServiceId, string> = {
-  research: '',
-  strategy: '',
-  design: '',
-  leadership: '',
+  research: 'https://raw.githubusercontent.com/gbunmi/logolita/main/RU.jpg',
+  strategy: 'https://raw.githubusercontent.com/gbunmi/logolita/main/SP.jpg',
+  design: 'https://raw.githubusercontent.com/gbunmi/logolita/main/DT.jpg',
+  leadership: 'https://raw.githubusercontent.com/gbunmi/logolita/main/UXLA.jpg',
 };
 
 // ---- Data -------------------------------------------------------------------
@@ -69,13 +70,31 @@ const Hero: FC = () => (
   <section className="hero" id="top">
     <div className="container">
       <div className="hero__copy">
-        <h1 className="display-xl">Our Services</h1>
-        <p className="lede">
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="display-xl"
+        >
+          Our Services
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="lede"
+        >
           From product flows to team dynamics, we uncover the friction points holding you back and
           work with you to resolve them in a way that lasts.
-        </p>
+        </motion.p>
       </div>
-      <div className="hero__divider" />
+      <motion.div 
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        style={{ transformOrigin: "left" }}
+        className="hero__divider" 
+      />
     </div>
   </section>
 );
@@ -89,7 +108,13 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
   <section className={`service ${isLast ? 'service--last' : ''}`} id={`service-${service.id}`}>
     <div className="container">
       <div className="service__inner">
-        <div className="service__header">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="service__header"
+        >
           <div className="service__heading">
             <span className="service__bar" aria-hidden="true" />
             <h2 className="display-s">{service.title}</h2>
@@ -97,20 +122,33 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
           <button className="btn-primary btn-primary--sm" type="button">
             Get in touch
           </button>
-        </div>
-        <div className="service__image">
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="service__image"
+        >
           <ImgSlot
             src={SERVICE_IMAGES[service.id]}
             label={`${service.title} image`}
             className="service__img"
           />
-        </div>
+        </motion.div>
         <div className="service__pillars">
           {service.pillars.map((p, i) => (
-            <div key={i} className="pillar">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+              key={i} 
+              className="pillar"
+            >
               <h3 className="pillar__title">{p.title}</h3>
               <p className="pillar__copy">{p.copy}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -61,7 +61,7 @@ function ServiceCardComponent({ service, height }: { service: ServiceCard; heigh
       transition={{ duration: 0.5 }}
       style={{
         backgroundColor: service.bg,
-        borderRadius: 24,
+        borderRadius: "24px",
         padding: "64px 40px 40px",
         height,
         display: "flex",
@@ -97,7 +97,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
         flexShrink: 0, 
         width: 656, 
         height: 484, 
-        borderRadius: 24, 
+        borderRadius: "24px", 
         overflow: "hidden", 
         backgroundColor: "#c4c4c4",
         transform: "translateZ(0)",
@@ -109,7 +109,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
           src={work.img} 
           alt={work.title} 
           referrerPolicy="no-referrer"
-          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 24 }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }}
         />
       )}
     </motion.div>
@@ -140,7 +140,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}
-      style={{ backgroundColor: "white", borderRadius: 24, padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid transparent" }}
+      style={{ backgroundColor: "white", borderRadius: "24px", padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid transparent" }}
       whileHover={{ borderColor: "rgba(215, 58, 59, 0.2)" }}
     >
       {work.imgFirst ? <>{imageBlock}{textBlock}</> : <>{textBlock}{imageBlock}</>}
@@ -156,7 +156,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
       viewport={{ once: true }}
       style={{ 
         backgroundColor: "white", 
-        borderRadius: 24, 
+        borderRadius: "24px", 
         display: "flex", 
         overflow: "hidden", 
         width: 962, 
@@ -167,13 +167,13 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
         WebkitMaskImage: "-webkit-radial-gradient(white, black)"
       }}
     >
-      <div style={{ width: 300, height: "100%", backgroundColor: "#c4c4c4", flexShrink: 0, overflow: "hidden" }}>
+      <div style={{ width: 300, height: "100%", backgroundColor: "#c4c4c4", flexShrink: 0, overflow: "hidden", borderRadius: "24px" }}>
         {testimonial.img && (
           <img 
             src={testimonial.img} 
             alt={testimonial.name} 
             referrerPolicy="no-referrer"
-            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px 0 0 24px" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }}
           />
         )}
       </div>
@@ -215,7 +215,7 @@ export default function Home(): React.JSX.Element {
             transition={{ duration: 1, delay: 0.5 }}
             style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}
           >
-            <Link to="/#contact" style={{ textDecoration: "none" }}>
+            <Link to={{ pathname: "/", hash: "#contact" }} style={{ textDecoration: "none" }}>
               <CTAButton label="Get in touch" />
             </Link>
           </motion.div>
@@ -244,13 +244,12 @@ export default function Home(): React.JSX.Element {
                       width: img.w, 
                       height: img.h, 
                       marginTop: img.mt, 
-                      borderRadius: 24, 
+                      borderRadius: "24px", 
                       overflow: "hidden", 
                       flexShrink: 0,
                       backgroundColor: "#c4c4c4",
                       transform: "translateZ(0)",
                       WebkitMaskImage: "-webkit-radial-gradient(white, black)", 
-                      maskImage: "radial-gradient(white, black)", // Standard property
                       isolation: "isolate"
                     }}
                   >
@@ -263,12 +262,12 @@ export default function Home(): React.JSX.Element {
                           width: "100%", 
                           height: "100%", 
                           objectFit: "cover", 
-                          borderRadius: 24,
+                          borderRadius: "24px",
                           display: "block"
                         }}
                       />
                     ) : (
-                      <div style={{ width: "100%", height: "100%", borderRadius: 24, backgroundColor: "#c4c4c4" }} />
+                      <div style={{ width: "100%", height: "100%", borderRadius: "24px", backgroundColor: "#c4c4c4" }} />
                     )}
                   </motion.div>
                 ))}
@@ -284,141 +283,149 @@ export default function Home(): React.JSX.Element {
         whileInView={{ backgroundColor: "#d73a3b" }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        style={{ padding: "80px 40px", display: "flex", flexDirection: "column", gap: 80 }}
+        style={{ padding: "80px 0" }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {["Research", "Strategy", "Design"].map((p, i) => (
-            <motion.div 
-              key={p} 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              style={{ flex: 1, display: "flex", alignItems: "center", gap: 12 }}
-            >
-              <div style={{ width: 8, height: 40, backgroundColor: "rgba(255,255,255,0.7)" }} />
-              <span style={{ fontWeight: 600, fontSize: 48, lineHeight: "54px", letterSpacing: -1.44, color: "white" }}>{p}</span>
-            </motion.div>
-          ))}
+        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {["Research", "Strategy", "Design"].map((p, i) => (
+              <motion.div 
+                key={p} 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                style={{ flex: 1, display: "flex", alignItems: "center", gap: 12 }}
+              >
+                <div style={{ width: 8, height: 40, backgroundColor: "rgba(255,255,255,0.7)" }} />
+                <span style={{ fontWeight: 600, fontSize: 48, lineHeight: "54px", letterSpacing: -1.44, color: "white" }}>{p}</span>
+              </motion.div>
+            ))}
+          </div>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{ fontWeight: 600, fontSize: 24, lineHeight: "32px", letterSpacing: -0.48, color: "white", maxWidth: 443, margin: 0 }}
+          >
+            Working with organizations across industries, from the first research question through design and delivery.
+          </motion.p>
         </div>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{ fontWeight: 600, fontSize: 24, lineHeight: "32px", letterSpacing: -0.48, color: "white", maxWidth: 443, margin: 0 }}
-        >
-          Working with organizations across industries, from the first research question through design and delivery.
-        </motion.p>
       </motion.section>
 
       {/* Services Context */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 40px", display: "flex", flexDirection: "column", gap: 80 }}>
-        <motion.h2 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", textAlign: "center", margin: 0 }}
-        >
-          The Right help at any stage
-        </motion.h2>
-        <div style={{ display: "flex", gap: 24 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24, flex: 1 }}>
-            <ServiceCardComponent service={services[0]} height={321} />
-            <ServiceCardComponent service={services[2]} height={375} />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24, flex: 1 }}>
-            <ServiceCardComponent service={services[1]} height={356} />
-            <ServiceCardComponent service={services[3]} height={342} />
+      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+          <motion.h2 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", textAlign: "center", margin: 0 }}
+          >
+            The Right help at any stage
+          </motion.h2>
+          <div style={{ display: "flex", gap: 24 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 24, flex: 1 }}>
+              <ServiceCardComponent service={services[0]} height={321} />
+              <ServiceCardComponent service={services[2]} height={375} />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 24, flex: 1 }}>
+              <ServiceCardComponent service={services[1]} height={356} />
+              <ServiceCardComponent service={services[3]} height={342} />
+            </div>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section style={{ backgroundColor: "#d73a3b", padding: "120px 40px", display: "flex", flexDirection: "column", gap: 80 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <motion.h2 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "white", margin: 0 }}
-            >
-              Who we are
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              style={{ fontWeight: 400, fontSize: 16, color: "white", maxWidth: 553, margin: 0 }}
-            >
-              20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.
-            </motion.p>
+      <section style={{ backgroundColor: "#d73a3b", padding: "120px 0" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <motion.h2 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "white", margin: 0 }}
+              >
+                Who we are
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                style={{ fontWeight: 400, fontSize: 16, color: "white", maxWidth: 553, margin: 0 }}
+              >
+                20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.
+              </motion.p>
+            </div>
+            <Link to="/about" style={{ width: "fit-content" }}>
+              <motion.button 
+                whileHover={{ scale: 1.05, backgroundColor: "white", color: "#d73a3b" }}
+                whileTap={{ scale: 0.95 }}
+                style={{ backgroundColor: "transparent", color: "white", border: "2px solid white", borderRadius: 12, padding: "12px 16px", fontWeight: 600, fontSize: 14, cursor: "pointer", alignSelf: "flex-start", fontFamily: font, transition: "background-color 0.2s, color 0.2s" }}
+              >
+                Learn more
+              </motion.button>
+            </Link>
           </div>
-          <Link to="/about">
-            <motion.button 
-              whileHover={{ scale: 1.05, backgroundColor: "white", color: "#d73a3b" }}
-              whileTap={{ scale: 0.95 }}
-              style={{ backgroundColor: "transparent", color: "white", border: "2px solid white", borderRadius: 12, padding: "12px 16px", fontWeight: 600, fontSize: 14, cursor: "pointer", alignSelf: "flex-start", fontFamily: font, transition: "background-color 0.2s, color 0.2s" }}
-            >
-              Learn more
-            </motion.button>
-          </Link>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ 
+              height: 545, 
+              borderRadius: "24px", 
+              overflow: "hidden", 
+              backgroundColor: "#c4c4c4",
+              transform: "translateZ(0)",
+              WebkitMaskImage: "-webkit-radial-gradient(white, black)"
+            }}
+          >
+            <img 
+              src="https://raw.githubusercontent.com/gbunmi/images/main/About%20us%20(2).jpg" 
+              alt="Who we are" 
+              referrerPolicy="no-referrer"
+              style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }}
+            />
+          </motion.div>
         </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          style={{ 
-            height: 545, 
-            borderRadius: 24, 
-            overflow: "hidden", 
-            backgroundColor: "#c4c4c4",
-            transform: "translateZ(0)",
-            WebkitMaskImage: "-webkit-radial-gradient(white, black)"
-          }}
-        >
-          <img 
-            src="https://raw.githubusercontent.com/gbunmi/images/main/About%20us%20(2).jpg" 
-            alt="Who we are" 
-            referrerPolicy="no-referrer"
-            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 24 }}
-          />
-        </motion.div>
       </section>
 
       {/* Works Section */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 40px 0", display: "flex", flexDirection: "column", gap: 120 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 80 }}>
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0 }}
-          >
-            Featured Works
-          </motion.h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: 64, alignItems: "center" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
-              {works.map((w, i) => <React.Fragment key={i}><WorkCard work={w} /></React.Fragment>)}
+      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0 0" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 80 }}>
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0 }}
+            >
+              Featured Works
+            </motion.h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 64, alignItems: "center" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
+                {works.map((w, i) => <React.Fragment key={i}><WorkCard work={w} /></React.Fragment>)}
+              </div>
+              <Link to="/works">
+                <motion.button 
+                  whileHover={{ scale: 1.02, backgroundColor: "#1e1e1e", color: "white" }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ backgroundColor: "transparent", color: "#1e1e1e", border: "2px solid rgba(0,0,0,0.6)", borderRadius: 12, padding: 16, fontWeight: 600, fontSize: 16, letterSpacing: -0.32, cursor: "pointer", fontFamily: font, transition: "all 0.2s" }}
+                >
+                  See all works
+                </motion.button>
+              </Link>
             </div>
-            <Link to="/works">
-              <motion.button 
-                whileHover={{ scale: 1.02, backgroundColor: "#1e1e1e", color: "white" }}
-                whileTap={{ scale: 0.98 }}
-                style={{ backgroundColor: "transparent", color: "#1e1e1e", border: "2px solid rgba(0,0,0,0.6)", borderRadius: 12, padding: 16, fontWeight: 600, fontSize: 16, letterSpacing: -0.32, cursor: "pointer", fontFamily: font, transition: "all 0.2s" }}
-              >
-                See all works
-              </motion.button>
-            </Link>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
       <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0", display: "flex", flexDirection: "column", gap: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", justifyContent: "center", padding: "0 40px" }}>
+        <div style={{ display: "flex", justifyContent: "center", padding: "0 40px", maxWidth: 1440, margin: "0 auto", width: "100%" }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

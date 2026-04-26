@@ -169,34 +169,34 @@ a {
 }
 
 /* ==== Hero ==== */
-.hero {
+.about-page .hero {
   background: var(--ui-light);
   width: 100%;
 }
-.hero > .container {
-  padding: 140px var(--gutter) 120px;
+.about-page .hero > .container {
+  padding: 60px var(--gutter) 120px;
   display: flex;
   flex-direction: column;
   gap: 64px;
 }
-.hero__copy {
+.about-page .hero__copy {
   display: flex;
   flex-direction: column;
   gap: 40px;
   max-width: 854px;
 }
-.hero__image-wrap {
+.about-page .hero__image-wrap {
   background: var(--white);
-  border-radius: 12px;
+  border-radius: 24px;
   height: 515px;
   width: 100%;
   overflow: hidden;
 }
-.hero__image {
+.about-page .hero__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 24px;
 }
 
 /* ==== Focus area cards ==== */
@@ -224,18 +224,19 @@ a {
 .focus-card {
   background: var(--white-10);
   border-radius: 24px;
-  height: 220px;
+  min-height: 220px;
   padding: 40px;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .focus-card__inner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 148px;
+  min-height: 148px;
   flex: 1;
   position: relative;
   z-index: 2;
@@ -394,7 +395,7 @@ a {
 .founder__photo {
   width: 652px;
   height: 652px;
-  border-radius: 16px;
+  border-radius: 24px;
   position: relative;
   overflow: hidden;
   background: var(--primary);
@@ -404,14 +405,14 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 24px;
 }
 .founder__photo::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, transparent 60%, #000);
-  border-radius: 16px;
+  border-radius: 24px;
   pointer-events: none;
 }
 .founder__name-block {
@@ -438,7 +439,7 @@ a {
   flex-direction: column;
 }
 .exp-row {
-  height: 96px;
+  min-height: 96px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -486,16 +487,18 @@ a {
   align-items: center;
 }
 .bio__logo {
-  width: 140px;
-  height: 67px;
+  width: 140px !important;
+  height: 67.01px !important;
   flex-shrink: 0;
+  object-fit: contain;
 }
 .bio__copy {
-  width: 672px;
+  width: 100%;
+  max-width: 672px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 32px;
 }
 .bio__lede {
   font-weight: 600;
@@ -504,6 +507,9 @@ a {
   letter-spacing: -0.48px;
   color: var(--text);
   margin-bottom: 8px;
+  text-wrap: balance;
+  overflow: visible;
+  white-space: normal;
 }
 .bio__copy p:not(.bio__lede) {
   font-weight: 500;
@@ -556,8 +562,8 @@ a {
     font-size: 56px;
     line-height: 1;
   }
-  .hero > .container {
-    padding: 100px 24px 80px;
+  .about-page .hero > .container {
+    padding: 40px 24px 80px;
   }
   .focus > .container {
     padding: 60px 24px;

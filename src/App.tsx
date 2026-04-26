@@ -41,40 +41,43 @@ function Navbar(): React.JSX.Element {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ position: "sticky", top: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 40px", backdropFilter: "blur(60px)", WebkitBackdropFilter: "blur(60px)", backgroundColor: "rgba(243,243,243,0.75)", borderBottom: "0.5px solid #cbcbcb" }}
+      style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(60px)", WebkitBackdropFilter: "blur(60px)", backgroundColor: "rgba(243,243,243,0.75)", borderBottom: "0.5px solid #cbcbcb" }}
     >
-      <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <motion.div 
-            whileHover={{ scale: 1.05 }}
-            style={{ backgroundColor: "#d73a3b", borderRadius: 8, padding: "6px 12px", display: "inline-flex", alignItems: "center", cursor: "pointer" }}
-          >
-            <span style={{ color: "white", fontWeight: 700, fontSize: 14, fontFamily: font }}>20/20</span>
-          </motion.div>
-        </Link>
-      </div>
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: 600, fontSize: 14, color: "#1e1e1e" }}>
-        {["About", "Services", "Works", "Blog"].map((item) => {
-          const path = `/${item.toLowerCase()}`;
-          const isActive = location.pathname === path;
-          return (
-            <Link 
-              key={item}
-              to={path} 
-              style={{ color: isActive ? "#d73a3b" : "inherit", textDecoration: "none" }}
-            >
-              <TextRoll text={item} color={isActive ? "#d73a3b" : "inherit"} hoverColor="#d73a3b" />
-            </Link>
-          );
-        })}
-        <Link to="/#contact" style={{ color: "inherit", textDecoration: "none" }}>
-          <TextRoll text="Contact" hoverColor="#d73a3b" />
-        </Link>
-      </div>
-      <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-        <Link to="/#contact" style={{ textDecoration: "none" }}>
-          <CTAButton label="Get in touch" />
-        </Link>
+      <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <motion.img 
+              whileHover={{ scale: 1.05 }}
+              src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
+              alt="20/20 Digital Logo"
+              referrerPolicy="no-referrer"
+              style={{ height: 34, width: "auto", cursor: "pointer", display: "block" }}
+            />
+          </Link>
+        </div>
+        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: 600, fontSize: 14, color: "#1e1e1e" }}>
+          {["About", "Services", "Works", "Blog"].map((item) => {
+            const path = `/${item.toLowerCase()}`;
+            const isActive = location.pathname === path;
+            return (
+              <Link 
+                key={item}
+                to={path} 
+                style={{ color: isActive ? "#d73a3b" : "inherit", textDecoration: "none" }}
+              >
+                <TextRoll text={item} color={isActive ? "#d73a3b" : "inherit"} />
+              </Link>
+            );
+          })}
+          <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ color: "inherit", textDecoration: "none" }}>
+            <TextRoll text="Contact" />
+          </Link>
+        </div>
+        <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+          <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none" }}>
+            <CTAButton label="Get in touch" />
+          </Link>
+        </div>
       </div>
     </motion.nav>
   );
