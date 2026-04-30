@@ -171,19 +171,20 @@ a {
 /* ==== Hero ==== */
 .about-page .hero {
   background: var(--ui-light);
+  padding: 140px var(--gutter) 120px;
+  max-width: var(--max-w);
+  margin: 0 auto;
   width: 100%;
-}
-.about-page .hero > .container {
-  padding: 60px var(--gutter) 120px;
   display: flex;
   flex-direction: column;
-  gap: 64px;
 }
-.about-page .hero__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+.about-page .hero .display-l {
+  margin-bottom: 40px;
   max-width: 854px;
+}
+.about-page .hero .lede {
+  max-width: 854px;
+  margin-bottom: 64px;
 }
 .about-page .hero__image-wrap {
   background: var(--white);
@@ -562,8 +563,14 @@ a {
     font-size: 56px;
     line-height: 1;
   }
-  .about-page .hero > .container {
-    padding: 40px 24px 80px;
+  .about-page .hero {
+    padding: 80px 24px 80px;
+  }
+  .about-page .hero .display-l {
+    margin-bottom: 32px;
+  }
+  .about-page .hero .lede {
+    margin-bottom: 48px;
   }
   .focus > .container {
     padding: 60px 24px;

@@ -32,26 +32,43 @@ type ServiceBlock = {
   pillars: [Pillar, Pillar, Pillar];
 };
 
-const SHARED_PILLARS: [Pillar, Pillar, Pillar] = [
-  {
-    title: 'Customer Insights',
-    copy: 'Understanding what customers need, expect, and experience by going beyond assumptions. This means uncovering real needs, motivations, and frustrations through observation, feedback, and journey mapping.',
-  },
-  {
-    title: 'Experience Gaps',
-    copy: 'Finding out what is driving a gap in a product or service experience by looking beneath surface issues. This involves identifying where expectations are not being met and what\u2019s causing the disconnect.',
-  },
-  {
-    title: 'Data Sensemaking',
-    copy: 'Making sense of the data and feedback you already have by turning scattered inputs into clear patterns. From analytics to support logs, this helps translate information into decisions you can act on.',
-  },
-];
-
 const SERVICES: ServiceBlock[] = [
-  { id: 'research', title: 'Research & Understanding', pillars: SHARED_PILLARS },
-  { id: 'strategy', title: 'Strategy & Planning', pillars: SHARED_PILLARS },
-  { id: 'design', title: 'Design & Testing', pillars: SHARED_PILLARS },
-  { id: 'leadership', title: 'UX Leadership & Advisory', pillars: SHARED_PILLARS },
+  { 
+    id: 'research', 
+    title: 'Research & Understanding', 
+    pillars: [
+      { title: 'Customer Insights', copy: 'Uncovering real needs, motivations, and frustrations through observation and journey mapping.' },
+      { title: 'Experience Gaps', copy: 'Identifying where expectations are not being met and what’s causing the disconnect.' },
+      { title: 'Data Sensemaking', copy: 'Translating scattered inputs from analytics and logs into decisions you can act on.' }
+    ]
+  },
+  { 
+    id: 'strategy', 
+    title: 'Strategy & Planning', 
+    pillars: [
+      { title: 'Roadmap Definition', copy: 'Aligning product goals with business objectives to create a realistic path for growth.' },
+      { title: 'Alignment Workshops', copy: 'Breaking down organizational silos to ensure stakeholders are moving in the same direction.' },
+      { title: 'Market Positioning', copy: 'Analyzing the competitive landscape to find unique opportunities for your product.' }
+    ]
+  },
+  { 
+    id: 'design', 
+    title: 'Design & Testing', 
+    pillars: [
+      { title: 'Iterative Prototyping', copy: 'Building and refining interfaces based on rapid feedback loops and real-world usage.' },
+      { title: 'Usability Validaton', copy: 'Testing concepts with actual users to ensure clarity, efficiency, and delight.' },
+      { title: 'System Scalability', copy: 'Creating robust design systems that allow your product to grow without friction.' }
+    ]
+  },
+  { 
+    id: 'leadership', 
+    title: 'UX Leadership & Advisory', 
+    pillars: [
+      { title: 'Team Mentorship', copy: 'Upskilling internal design teams and establishing best practices for delivery.' },
+      { title: 'Interim Leadership', copy: 'Providing senior oversight during critical growth phases or organizational transitions.' },
+      { title: 'Process Optimization', copy: 'Refining how design, product, and engineering teams work together effectively.' }
+    ]
+  },
 ];
 
 // ---- Reusable bits ----------------------------------------------------------
@@ -68,34 +85,29 @@ const ImgSlot: FC<ImgSlotProps> = ({ src, alt, label, className }) =>
 // ---- Sections ---------------------------------------------------------------
 const Hero: FC = () => (
   <section className="hero" id="top">
-    <div className="container">
-      <div className="hero__copy">
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="display-xl"
-        >
-          Our Services
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="lede"
-        >
-          From product flows to team dynamics, we uncover the friction points holding you back and
-          work with you to resolve them in a way that lasts.
-        </motion.p>
-      </div>
-      <motion.div 
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        style={{ transformOrigin: "left" }}
-        className="hero__divider" 
-      />
-    </div>
+    <motion.h1 
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="display-xl"
+    >
+      Our Services
+    </motion.h1>
+    <motion.p 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="lede"
+    >
+      Diverse expertise to support your product at any stage—from deep qualitative research to strategic roadmapping and the design of high-performance delivery teams.
+    </motion.p>
+    <motion.div 
+      initial={{ scaleX: 0 }}
+      animate={{ scaleX: 1 }}
+      transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      style={{ transformOrigin: "left" }}
+      className="hero__divider" 
+    />
   </section>
 );
 

@@ -212,21 +212,18 @@ a {
 .services-page .hero {
   background: var(--ui-light);
   width: 100%;
-}
-.services-page .hero > .container {
   padding: 140px var(--gutter) 0;
+  max-width: var(--max-w);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 80px;
 }
-.services-page .hero__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  max-width: 800px;
+.services-page .hero .display-xl {
+  margin-bottom: 40px;
 }
-.services-page .hero__copy .lede {
+.services-page .hero .lede {
   max-width: 622px;
+  margin-bottom: 80px;
 }
 .services-page .hero__divider {
   width: 100%;
@@ -349,9 +346,14 @@ a {
     font-size: 28px;
     line-height: 1.1;
   }
-  .services-page .hero > .container {
-    padding: 100px 24px 0;
-    gap: 48px;
+  .services-page .hero {
+    padding: 80px 24px 0;
+  }
+  .services-page .hero .display-xl {
+    margin-bottom: 32px;
+  }
+  .services-page .hero .lede {
+    margin-bottom: 48px;
   }
   .service__inner {
     padding: 48px 24px 0;

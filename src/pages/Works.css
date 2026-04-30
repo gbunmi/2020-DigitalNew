@@ -226,16 +226,13 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 80px;
 }
-.works-page .hero__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  max-width: 800px;
+.works-page .hero .display-xl {
+  margin-bottom: 40px;
 }
-.works-page .hero__copy .lede {
+.works-page .hero .lede {
   max-width: 622px;
+  margin-bottom: 80px;
 }
 .works-page .hero__divider {
   width: 100%;
@@ -568,8 +565,13 @@ a {
     line-height: 1.1;
   }
   .works-page .hero {
-    padding: 100px 24px 0;
-    gap: 48px;
+    padding: 80px 24px 0;
+  }
+  .works-page .hero .display-xl {
+    margin-bottom: 32px;
+  }
+  .works-page .hero .lede {
+    margin-bottom: 48px;
   }
   .works {
     padding: 48px 24px 80px;

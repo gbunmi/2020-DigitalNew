@@ -15,49 +15,49 @@ const FOCUS_AREAS: FocusArea[] = [
   {
     n: '01',
     title: 'User Experience',
-    copy: '20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial',
+    copy: 'We design digital products that feel natural, focusing on how people think and act to remove friction.',
   },
   {
     n: '02',
     title: 'Customer Experience',
-    copy: '20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial',
+    copy: 'Mapping the entire journey to find the gaps between what you promise and what customers receive.',
   },
   {
     n: '03',
     title: 'Digital Products',
-    copy: '20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial',
+    copy: 'Building scalable software solutions that balance high-level strategy with pixel-perfect execution.',
   },
   {
     n: '04',
     title: 'Service Experiences',
-    copy: '20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial',
+    copy: 'Bridging the divide between physical and digital service points for a unified brand experience.',
   },
   {
     n: '05',
     title: 'Digital Strategy',
-    copy: '20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial',
+    copy: 'Helping organizations navigate complex digital transformations with research-backed decisions.',
   },
   {
     n: '06',
     title: 'Employee Experience',
-    copy: '20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial',
+    copy: 'Optimizing internal tools and workflows to empower your team to deliver their best work.',
   },
 ];
 
 type Stat = { value: string; label: string };
 
 const STATS: Stat[] = [
-  { value: '100', label: 'Projects' },
-  { value: '98%', label: 'Client Retention' },
-  { value: '24', label: 'Projects' },
-  { value: '100', label: 'Projects' },
+  { value: '25+', label: 'Years Experience' },
+  { value: '150+', label: 'Projects Delivered' },
+  { value: '40+', label: 'Client Partners' },
+  { value: '12', label: 'Core Industries' },
 ];
 
 const SERVICE_TAGS = [
   'Team & Leadership Advisory',
-  'Team & Leadership Advisory',
   'Product Strategy & Design',
   'Customer & Product Research',
+  'Interim UX Leadership',
   'Workshops & Training',
   'Service Design',
   'Usability Testing',
@@ -67,11 +67,12 @@ type ExperienceRow = { role: string; company: string; period: string };
 
 const EXPERIENCE: ExperienceRow[] = [
   { role: 'Principal Consultant', company: '20/20 Digital', period: '2017 — Present' },
-  { role: 'Principal Consultant', company: '20/20 Digital', period: '2017 — Present' },
-  { role: 'Principal Consultant', company: '20/20 Digital', period: '2017 — Present' },
-  { role: 'Principal Consultant', company: '20/20 Digital', period: '2017 — Present' },
-  { role: 'Principal Consultant', company: '20/20 Digital', period: '2017 — Present' },
-  { role: 'Principal Consultant', company: '20/20 Digital', period: '2017 — Present' },
+  { role: 'Principal, Service Design', company: 'Davis Pier Consulting', period: '2017' },
+  { role: 'Director, Product & Marketing', company: 'aioTV', period: '2016 — 2017' },
+  { role: 'Director, Digital Strategy & User Experience', company: 'VERB Interactive', period: '2014 — 2016' },
+  { role: 'Strategy, Development & Production', company: 'VERB Interactive', period: '2005 — 2013' },
+  { role: 'Branch Operations Supervisor', company: 'Halifax Public Libraries', period: '2004 — 2005' },
+  { role: 'Library Assistant', company: 'Halifax Public Libraries', period: '1998 — 2004' },
 ];
 
 // ---- Reusable bits ----------------------------------------------------------
@@ -95,35 +96,31 @@ const Pill: FC<{ children: ReactNode }> = ({ children }) => (
 // ---- Sections ---------------------------------------------------------------
 const Hero: FC = () => (
   <section className="hero" id="top">
-    <div className="container">
-      <div className="hero__copy">
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="display-l"
-        >
-          Making better products by fixing what&rsquo;s behind them.
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="lede"
-        >
-          From product flows to team dynamics, we uncover the friction points holding you back and
-          work with you to resolve them in a way that lasts.
-        </motion.p>
-      </div>
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="hero__image-wrap"
-      >
-        <ImgSlot src={HERO_IMAGE_URL} label="Hero image" className="hero__image" />
-      </motion.div>
-    </div>
+    <motion.h1 
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="display-l"
+    >
+      Making better products by fixing what&rsquo;s behind them.
+    </motion.h1>
+    <motion.p 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="lede"
+    >
+      From product flows to team dynamics, we uncover the friction points holding you back and
+      work with you to resolve them in a way that lasts.
+    </motion.p>
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="hero__image-wrap"
+    >
+      <ImgSlot src={HERO_IMAGE_URL} label="Hero image" className="hero__image" />
+    </motion.div>
   </section>
 );
 

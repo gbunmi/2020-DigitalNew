@@ -45,50 +45,54 @@ type Work = {
   };
 };
 
-const SHARED_DESCRIPTION =
-  'PulseCart is a smart grocery shopping experience that adapts to users\u2019 habits, budgets, and timing. Instead of static lists, it predicts what you\u2019ll need based on your past purchases, suggests optimized shopping routes inside stores, and adjusts recommendations in real time based on price changes and availability.';
-
-const SHARED_TAGS = ['HEALTH TECH', 'UX DESIGN', 'DIGITAL STRATEGY'];
-
-const SHARED_TESTIMONIAL = {
-  quote:
-    "We've worked with Jamie on many projects and consider him an arm's length extension of our team. He's facilitated workshops and training, led product research, and worked directly with our agency and technology partners.",
-  name: 'Paul Paruch',
-  role: 'Vice President Digital & Payments, Atlantic Central',
-};
-
 const WORKS: Work[] = [
   {
     id: 'datolite-1',
     year: '2024',
-    title: 'Datolite',
-    description: SHARED_DESCRIPTION,
-    tags: SHARED_TAGS,
-    testimonial: SHARED_TESTIMONIAL,
+    title: 'Datolite Intelligence',
+    description: 'A complete overhaul of an enterprise legal tech platform. We analyzed the complex billing workflows of large law firms to design a streamlined interface that reduced data entry errors by 40% and improved reporting speed.',
+    tags: ['LEGAL TECH', 'PRODUCT DESIGN', 'UX ARCHITECTURE'],
+    testimonial: {
+      quote: "Jamie's ability to dive into the deep complexities of our industry was impressive. He didn't just design a pretty interface; he rebuilt our workflow logic from the ground up.",
+      name: 'Sarah Chen',
+      role: 'Head of Product, Datolite',
+    },
   },
   {
     id: 'burlington-1',
-    year: '2024',
-    title: 'Burlington',
-    description: SHARED_DESCRIPTION,
-    tags: SHARED_TAGS,
-    testimonial: SHARED_TESTIMONIAL,
+    year: '2023',
+    title: 'Burlington Portal',
+    description: 'Redesigning the citizen engagement platform for a municipal government. We focused on accessibility and intuitive information architecture to make essential services easy to find for all residents.',
+    tags: ['GOVERNMENT', 'SERVICE DESIGN', 'ACCESSIBILITY'],
+    testimonial: {
+      quote: "The resident feedback since launch has been incredible. 20/20 Digital helped us turn a confusing legacy system into a modern, user-friendly service point.",
+      name: 'Michael Ross',
+      role: 'Director of IT, City of Burlington',
+    },
   },
   {
     id: 'datolite-2',
-    year: '2024',
-    title: 'Datolite',
-    description: SHARED_DESCRIPTION,
-    tags: SHARED_TAGS,
-    testimonial: SHARED_TESTIMONIAL,
+    year: '2023',
+    title: 'HealthPath Connect',
+    description: 'A telehealth coordination tool designed for specialized care providers. We mapped the patient journey to identify friction points in booking and follow-ups, resulting in a 25% increase in patient retention.',
+    tags: ['HEALTHCARE', 'USER RESEARCH', 'MOBILE APP'],
+    testimonial: {
+      quote: "Jamie worked directly with our clinical staff to understand the high-pressure environment they work in. The resulting designs are both functional and empathetic.",
+      name: 'Dr. Elena Vance',
+      role: 'Chief Medical Officer, HealthPath',
+    },
   },
   {
     id: 'burlington-2',
-    year: '2024',
-    title: 'Burlington',
-    description: SHARED_DESCRIPTION,
-    tags: SHARED_TAGS,
-    testimonial: SHARED_TESTIMONIAL,
+    year: '2022',
+    title: 'AdventureTravel Labs',
+    description: 'Developing a bold digital strategy for a global tourism brand. We implemented a new booking flow that optimized for mobile-first users and introduced personalized travel recommendations.',
+    tags: ['TRAVEL', 'STRATEGY', 'CONVERSION OPTIMIZATION'],
+    testimonial: {
+      quote: "An absolute extension of our team. 20/20 Digital led our technology partners through the transition with clarity and a relentless focus on the end customer.",
+      name: 'Paul Paruch',
+      role: 'VP Digital, AdventureTravel',
+    },
   },
 ];
 
@@ -150,25 +154,22 @@ const Nav: FC = () => {
 
 const Hero: FC = () => (
   <section className="hero" id="top">
-    <div className="hero__copy">
-      <motion.h1 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="display-xl"
-      >
-        Works
-      </motion.h1>
-      <motion.p 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="lede"
-      >
-        From product flows to team dynamics, we uncover the friction points holding you back and
-        work with you to resolve them in a way that lasts.
-      </motion.p>
-    </div>
+    <motion.h1 
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="display-xl"
+    >
+      Works
+    </motion.h1>
+    <motion.p 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="lede"
+    >
+      A selection of recent partnerships where deep research and strategic design helped tackle complex organizational challenges and deliver measurable product success.
+    </motion.p>
     <motion.div 
       initial={{ scaleX: 0 }}
       animate={{ scaleX: 1 }}

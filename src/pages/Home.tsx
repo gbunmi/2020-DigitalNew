@@ -31,16 +31,37 @@ interface Testimonial {
 }
 
 const services: ServiceCard[] = [
-  { title: ["Research ", "& Understanding"], desc: "20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.", bg: "#1e1e1e", text: "white", descC: "rgba(255,255,255,0.7)" },
-  { title: ["Strategy ", "& Planning"], desc: "20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.", bg: "#d3d3d3", text: "#1e1e1e", descC: "rgba(30,30,28,0.7)" },
-  { title: ["Design ", "& Testing"], desc: "20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.", bg: "#4d7459", text: "white", descC: "rgba(255,255,255,0.7)" },
-  { title: ["UX Leadership ", "& Advisory"], desc: "20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.", bg: "#2c444b", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { title: ["Research ", "& Understanding"], desc: "Uncovering real user needs, motivations, and frustrations through journey mapping and evidence-based analysis.", bg: "#1e1e1e", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { title: ["Strategy ", "& Planning"], desc: "Aligning product roadmaps with business objectives to create a realistic, research-backed path for growth.", bg: "#d3d3d3", text: "#1e1e1e", descC: "rgba(30,30,28,0.7)" },
+  { title: ["Design ", "& Testing"], desc: "Building and refining scalable interfaces based on rapid prototyping and direct feedback from your actual users.", bg: "#4d7459", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { title: ["UX Leadership ", "& Advisory"], desc: "Upskilling internal teams and providing senior oversight to bridge the gap between design and delivery.", bg: "#2c444b", text: "white", descC: "rgba(255,255,255,0.7)" },
 ];
 
 const works: WorkItem[] = [
-  { year: "2024", title: "Datolite", desc: "PulseCart is a smart grocery shopping experience that adapts to users' habits, budgets, and timing. Instead of static lists, it predicts what you'll need based on your past purchases, suggests optimized shopping routes inside stores, and adjusts recommendations in real time based on price changes and availability.", tags: ["HEALTH TECH", "UX DESIGN", "DIGITAL STRATEGY"], imgFirst: true, img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%201.jpg" },
-  { year: "2024", title: "Paul Paruch", desc: "The focus of the project was reducing decision fatigue and time spent shopping, especially for busy urban users. I explored how subtle nudges, predictive patterns, and context-aware UI can turn a routine task into something faster and almost automatic.\nThe design process covered user research, behavioral mapping, interaction design, and building a responsive system that balances automation with user control.", tags: ["HEALTH TECH", "UX DESIGN", "DIGITAL STRATEGY"], imgFirst: false, img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%202.jpg" },
-  { year: "2024", title: "Burlington", desc: "PulseCart is a smart grocery shopping experience that adapts to users' habits, budgets, and timing. Instead of static lists, it predicts what you'll need based on your past purchases, suggests optimized shopping routes inside stores, and adjusts recommendations in real time based on price changes and availability.", tags: ["HEALTH TECH", "UX DESIGN", "DIGITAL STRATEGY"], imgFirst: true, img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%203.jpg" },
+  { 
+    year: "2024", 
+    title: "Datolite Intelligence", 
+    desc: "A complete overhaul of an enterprise legal tech platform. We analyzed complex billing workflows to design a streamlined interface that reduced data entry errors by 40%.", 
+    tags: ["LEGAL TECH", "PRODUCT DESIGN", "UX ARCHITECTURE"], 
+    imgFirst: true, 
+    img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%201.jpg" 
+  },
+  { 
+    year: "2023", 
+    title: "HealthPath Connect", 
+    desc: "A telehealth coordination tool designed for specialized care providers. We mapped the patient journey to identify friction points, resulting in a 25% increase in retention.", 
+    tags: ["HEALTHCARE", "USER RESEARCH", "MOBILE APP"], 
+    imgFirst: false, 
+    img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%202.jpg" 
+  },
+  { 
+    year: "2023", 
+    title: "Burlington Portal", 
+    desc: "Redesigning a citizen engagement platform for a municipal government, focusing on accessibility and intuitive information architecture for essential resident services.", 
+    tags: ["GOVERNMENT", "SERVICE DESIGN", "ACCESSIBILITY"], 
+    imgFirst: true, 
+    img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%203.jpg" 
+  },
 ];
 
 const testimonials: Testimonial[] = [
@@ -200,26 +221,17 @@ export default function Home(): React.JSX.Element {
     <div style={{ fontFamily: font, overflowX: "hidden" }}>
       {/* Hero */}
       <section style={{ backgroundColor: "#f3f3f3", padding: "100px 0 120px", display: "flex", flexDirection: "column", gap: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", padding: "0 40px", gap: 10, alignItems: "flex-end", justifyContent: "center", maxWidth: 1440, margin: "0 auto", width: "100%" }}>
+        <div style={{ display: "flex", padding: "0 40px", gap: 10, alignItems: "flex-end", justifyContent: "flex-start", maxWidth: 1440, margin: "0 auto", width: "100%" }}>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            style={{ fontWeight: 600, fontSize: 72, lineHeight: "72px", letterSpacing: -2.16, color: "#1e1e1e", maxWidth: 869, margin: 0 }}
+            style={{ fontWeight: 600, fontSize: 72, lineHeight: "72px", letterSpacing: -2.16, color: "#1e1e1e", maxWidth: 869, margin: 0, textAlign: "left" }}
           >
             Better products and services start with understanding people.
           </motion.h1>
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}
-          >
-            <Link to={{ pathname: "/", hash: "#contact" }} style={{ textDecoration: "none" }}>
-              <CTAButton label="Get in touch" />
-            </Link>
-          </motion.div>
         </div>
+
 
         {/* Ticker Section */}
         <div style={{ width: "100%", overflow: "hidden" }}>
@@ -356,7 +368,7 @@ export default function Home(): React.JSX.Element {
                 transition={{ delay: 0.3 }}
                 style={{ fontWeight: 400, fontSize: 16, color: "white", maxWidth: 553, margin: 0 }}
               >
-                20/20 Digital was founded in 2017 and has worked with organizations across industries that include financial services, healthcare, government, technology, legal, education, startups, and travel & tourism.
+                At 20/20 Digital, we help organizations bridge the gap between their vision and their customers' reality. Whether you’re scaling a product or auditing a service, we provide the research and design leadership to build better.
               </motion.p>
             </div>
             <Link to="/about" style={{ width: "fit-content" }}>

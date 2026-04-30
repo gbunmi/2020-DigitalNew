@@ -1,4 +1,5 @@
 import { useEffect, useState, type FC } from 'react';
+import { motion } from 'motion/react';
 import './Blog.css';
 
 /* =============================================================================
@@ -31,74 +32,74 @@ const ARTICLES: Article[] = [
   {
     id: 'a1',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'The Hidden Cost of UX Debt',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'Understanding how cutting corners in design today leads to significant operational friction and customer loss tomorrow.',
+    date: 'February 12, 2026',
   },
   {
     id: 'a2',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'Beyond the Feature List',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'Why successful digital products are defined by the problems they solve, not the number of features they ship.',
+    date: 'January 28, 2026',
   },
   {
     id: 'a3',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'Designing for Trust',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'How transparency and ethical design patterns build long-term loyalty in financial and healthcare services.',
+    date: 'January 15, 2026',
   },
   {
     id: 'a4',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'The Role of Research in Strategy',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'How qualitative insights transform abstract business goals into actionable roadmaps for growth.',
+    date: 'December 10, 2025',
   },
   {
     id: 'a5',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'Facilitating Better Workshops',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'Techniques for breaking down silos and getting stakeholders aligned on a unified product vision.',
+    date: 'November 22, 2025',
   },
   {
     id: 'a6',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'UX Leadership Readiness',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'Scaling a design team requires more than hiring talent—it requires building a culture of measurement and accountability.',
+    date: 'November 5, 2025',
   },
   {
     id: 'a7',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'The Myth of the Perfect Launch',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'Why day one is actually day zero, and how to structure your team for iterative success post-release.',
+    date: 'October 18, 2025',
   },
   {
     id: 'a8',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'Employee Experience Matters',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'The direct link between internal tool usability and the quality of your customer-facing service delivery.',
+    date: 'September 30, 2025',
   },
   {
     id: 'a9',
     cover: '',
-    title: '\u201CWe Need Our UX Fixed\u201D',
+    title: 'Navigating Change Management',
     excerpt:
-      'When organizations come to me saying they need their UX fixed, that phrase is usually doing more work than they realize',
-    date: 'March 13, 2026',
+      'Helping large organizations transition to a modern, user-centric approach without losing institutional knowledge.',
+    date: 'September 12, 2025',
   },
 ];
 
@@ -146,19 +147,41 @@ const Nav: FC = () => {
 
 const Hero: FC = () => (
   <section className="hero" id="top">
-    <div className="hero__copy">
-      <h1 className="display-xl">Latest Articles</h1>
-      <p className="lede">
-        From product flows to team dynamics, we uncover the friction points holding you back and
-        work with you to resolve them in a way that lasts.
-      </p>
-    </div>
-    <div className="hero__divider" />
+    <motion.h1 
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="display-xl"
+    >
+      Latest Articles
+    </motion.h1>
+    <motion.p 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="lede"
+    >
+      Thinking aloud about product strategy, design ethics, and the organizational patterns that shape the digital landscape.
+    </motion.p>
+    <motion.div 
+      initial={{ scaleX: 0 }}
+      animate={{ scaleX: 1 }}
+      transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      style={{ transformOrigin: "left" }}
+      className="hero__divider" 
+    />
   </section>
 );
 
 const ArticleCard: FC<{ article: Article }> = ({ article }) => (
-  <a className="article-card" href={article.href ?? '#'}>
+  <motion.a 
+    variants={{
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+    }}
+    className="article-card" 
+    href={article.href ?? '#'}
+  >
     <div className="article-card__cover">
       <ImgSlot
         src={article.cover}
@@ -172,29 +195,54 @@ const ArticleCard: FC<{ article: Article }> = ({ article }) => (
       <p className="article-card__excerpt">{article.excerpt}</p>
       <p className="article-card__date">{article.date}</p>
     </div>
-  </a>
+  </motion.a>
 );
 
 const Articles: FC = () => (
   <section className="articles" id="articles">
-    <div className="articles__grid">
+    <motion.div 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: 0.1
+          }
+        }
+      }}
+      className="articles__grid"
+    >
       {ARTICLES.map((a) => (
         <ArticleCard key={a.id} article={a} />
       ))}
-    </div>
+    </motion.div>
   </section>
 );
 
 const Contact: FC = () => (
   <section className="contact" id="contact">
-    <div className="contact__copy">
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="contact__copy"
+    >
       <h2 className="display-xxl">Let&rsquo;s have a conversation</h2>
       <p className="contact__lede">
         Whether you have a project ready or just want to talk something through, get in touch.
         You&rsquo;ll hear back within one business day.
       </p>
-    </div>
-    <form className="contact__form" onSubmit={(e) => e.preventDefault()}>
+    </motion.div>
+    <motion.form 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="contact__form" 
+      onSubmit={(e) => e.preventDefault()}
+    >
       <div className="contact__fields">
         <input className="field" type="text" placeholder="Your name" />
         <input className="field" type="email" placeholder="Your email" />
@@ -203,7 +251,7 @@ const Contact: FC = () => (
       <button className="btn-primary btn-primary--lg" type="submit">
         Send
       </button>
-    </form>
+    </motion.form>
   </section>
 );
 
