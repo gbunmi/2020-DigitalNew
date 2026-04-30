@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import * as React from "react";
-import { motion } from "motion/react";
+import { motion, useAnimation } from "motion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Tag, CTAButton, Placeholder, ContactSection, Footer } from "../components/SharedUI";
+import Partners from "../components/Partners";
 
 const font = "'Instrument Sans', sans-serif";
 
@@ -65,11 +66,11 @@ const works: WorkItem[] = [
 ];
 
 const testimonials: Testimonial[] = [
-  { quote: "The 20/20 team brought a level of user insight that we simply hadn't encountered before. Their methodology for gathering deep qualitative data changed our perspective on our own product roadmap.", name: "Aisling O'Connor", role: "Product Lead, Healthly" },
+  { quote: "The 20/20 team brought a level of user insight that we simply hadn't encountered before. Their methodology for gathering deep qualitative data changed our perspective on our own product roadmap.", name: "Aisling O'Connor", role: "Product Lead, Healthly", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" },
   { quote: "Collaborative, insightful, and technically grounded. They didn't just hand over designs; they partnered with our engineers to ensure the user experience was realized perfectly in code.", name: "Paul Paruch", role: "Vice President Digital & Payments, Atlantic Central", img: "https://raw.githubusercontent.com/gbunmi/images/main/Frame%2017%20(1).jpg" },
-  { quote: "Their leadership during our accessibility audit was invaluable. They provided practical, actionable advice that bridged the gap between complex WCAG requirements and our core design system.", name: "Marcus Thorne", role: "Director of Innovation, GovConnect" },
-  { quote: "The strategic approach to UX research provided us with a roadmap that completely transformed our product trajectory. We finally feel like we understand our users' core needs and can build with confidence.", name: "Sarah Jenkins", role: "Chief Product Officer, NexGen FinTech" },
-  { quote: "Implementation was seamless. The attention to detail in the design system and the clear advisory role they took helped our internal team level up significantly. A truly collaborative partnership.", name: "David Chen", role: "Head of Design, Global Gov Services" },
+  { quote: "Their leadership during our accessibility audit was invaluable. They provided practical, actionable advice that bridged the gap between complex WCAG requirements and our core design system.", name: "Marcus Thorne", role: "Director of Innovation, GovConnect", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400" },
+  { quote: "The strategic approach to UX research provided us with a roadmap that completely transformed our product trajectory. We finally feel like we understand our users' core needs and can build with confidence.", name: "Sarah Jenkins", role: "Chief Product Officer, NexGen FinTech", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400" },
+  { quote: "Implementation was seamless. The attention to detail in the design system and the clear advisory role they took helped our internal team level up significantly. A truly collaborative partnership.", name: "David Chen", role: "Head of Design, Global Gov Services", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400" },
 ];
 
 function ServiceCardComponent({ service, height }: { service: ServiceCard; height: number }): React.JSX.Element {
@@ -126,10 +127,12 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       }}
     >
       {work.img && (
-        <img 
+        <motion.img 
           src={work.img} 
           alt={work.title} 
           referrerPolicy="no-referrer"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }}
         />
       )}
@@ -161,8 +164,8 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}
-      style={{ backgroundColor: "white", borderRadius: "24px", padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid transparent" }}
-      whileHover={{ borderColor: "rgba(215, 58, 59, 0.2)" }}
+      style={{ backgroundColor: "white", borderRadius: "24px", padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid #f0f0f0" }}
+      whileHover={{ transform: "translateY(-4px)", boxShadow: "0 20px 40px rgba(0,0,0,0.05)" }}
     >
       {work.imgFirst ? <>{imageBlock}{textBlock}</> : <>{textBlock}{imageBlock}</>}
     </motion.div>
@@ -217,6 +220,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
 }
 
 export default function Home(): React.JSX.Element {
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
+  const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
+
   return (
     <div style={{ fontFamily: font, overflowX: "hidden" }}>
       {/* Hero */}
@@ -236,9 +242,18 @@ export default function Home(): React.JSX.Element {
         {/* Ticker Section */}
         <div style={{ width: "100%", overflow: "hidden" }}>
           <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-            style={{ display: "flex", gap: 24, paddingLeft: 24, width: "max-content" }}
+            className="ticker-animate"
+            onMouseEnter={() => setIsHeroPaused(true)}
+            onMouseLeave={() => setIsHeroPaused(false)}
+            style={{ 
+              display: "flex", 
+              gap: 24, 
+              paddingLeft: 24, 
+              width: "max-content",
+              animationDuration: "30s",
+              animationPlayState: isHeroPaused ? "paused" : "running"
+            }}
+            whileHover={{ scale: 0.98, transition: { duration: 0.8 } }}
           >
             {[...Array(2)].map((_, listIdx) => (
               <React.Fragment key={listIdx}>
@@ -246,9 +261,9 @@ export default function Home(): React.JSX.Element {
                   { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%201.jpg", w: 454, h: 451, mt: 0 },
                   { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%202.jpg", w: 523, h: 404, mt: 30 },
                   { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%203.png", w: 431, h: 460, mt: -10 },
-                  { w: 490, h: 420, mt: 20 },
-                  { w: 510, h: 480, mt: -20 },
-                  { w: 460, h: 440, mt: 40 }
+                  { src: "https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&q=80&w=600", w: 490, h: 420, mt: 20 },
+                  { src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600", w: 510, h: 480, mt: -20 },
+                  { src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=600", w: 460, h: 440, mt: 40 }
                 ].map((img, i) => (
                   <motion.div
                     key={`${listIdx}-${i}`}
@@ -384,6 +399,7 @@ export default function Home(): React.JSX.Element {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
+            whileHover={{ y: -10, boxShadow: "0 30px 60px rgba(0,0,0,0.15)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             style={{ 
@@ -392,10 +408,13 @@ export default function Home(): React.JSX.Element {
               overflow: "hidden", 
               backgroundColor: "#c4c4c4",
               transform: "translateZ(0)",
-              WebkitMaskImage: "-webkit-radial-gradient(white, black)"
+              WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+              cursor: "pointer"
             }}
           >
-            <img 
+            <motion.img 
+              whileHover={{ scale: 1.08 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               src="https://raw.githubusercontent.com/gbunmi/images/main/About%20us%20(2).jpg" 
               alt="Who we are" 
               referrerPolicy="no-referrer"
@@ -449,9 +468,17 @@ export default function Home(): React.JSX.Element {
         </div>
         <div style={{ width: "100%", overflow: "hidden" }}>
           <motion.div 
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 60, ease: "linear", repeat: Infinity }}
-            style={{ display: "flex", gap: 40, width: "max-content", paddingLeft: 40 }}
+            className="ticker-animate"
+            onMouseEnter={() => setIsTestimonialPaused(true)}
+            onMouseLeave={() => setIsTestimonialPaused(false)}
+            style={{ 
+              display: "flex", 
+              gap: 40, 
+              width: "max-content", 
+              paddingLeft: 40,
+              animationDuration: "60s",
+              animationPlayState: isTestimonialPaused ? "paused" : "running"
+            }}
           >
             {[...Array(2)].map((_, listIdx) => (
               <React.Fragment key={listIdx}>
@@ -465,6 +492,8 @@ export default function Home(): React.JSX.Element {
           </motion.div>
         </div>
       </section>
+
+      <Partners />
 
       <ContactSection />
       <Footer />

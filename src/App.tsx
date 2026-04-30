@@ -41,7 +41,7 @@ function Navbar(): React.JSX.Element {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(60px)", WebkitBackdropFilter: "blur(60px)", backgroundColor: "rgba(243,243,243,0.75)", borderBottom: "0.5px solid #cbcbcb" }}
+      style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(60px)", WebkitBackdropFilter: "blur(60px)", backgroundColor: "rgba(243,243,243,0.75)", borderBottom: "0.5px solid #E8E8E8" }}
     >
       <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ flex: 1, display: "flex", alignItems: "center" }}>

@@ -142,6 +142,7 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.02 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="service__image"
@@ -157,6 +158,7 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ x: 10 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
               key={i} 

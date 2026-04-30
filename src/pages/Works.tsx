@@ -158,14 +158,17 @@ const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
+      whileHover={{ y: -8 }}
       className="work-card"
     >
       <div className="work-card__media">
-        <ImgSlot
-          src={WORK_IMAGES[work.id]}
-          label={`${work.title} cover`}
-          className="work-card__img"
-        />
+        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>
+          <ImgSlot
+            src={WORK_IMAGES[work.id]}
+            label={`${work.title} cover`}
+            className="work-card__img"
+          />
+        </motion.div>
       </div>
       <div className="work-card__body">
         <div className="work-card__head">

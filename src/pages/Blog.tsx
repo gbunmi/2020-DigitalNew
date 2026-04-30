@@ -32,7 +32,7 @@ type Article = {
 const ARTICLES: Article[] = [
   {
     id: 'a1',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop',
     title: 'The Hidden Cost of UX Debt',
     excerpt:
       'Understanding how cutting corners in design today leads to significant operational friction and customer loss tomorrow.',
@@ -40,7 +40,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a2',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
     title: 'Beyond the Feature List',
     excerpt:
       'Why successful digital products are defined by the problems they solve, not the number of features they ship.',
@@ -48,7 +48,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a3',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop',
     title: 'Designing for Trust',
     excerpt:
       'How transparency and ethical design patterns build long-term loyalty in financial and healthcare services.',
@@ -56,7 +56,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a4',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1000&auto=format&fit=crop',
     title: 'The Role of Research in Strategy',
     excerpt:
       'How qualitative insights transform abstract business goals into actionable roadmaps for growth.',
@@ -64,7 +64,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a5',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop',
     title: 'Facilitating Better Workshops',
     excerpt:
       'Techniques for breaking down silos and getting stakeholders aligned on a unified product vision.',
@@ -72,7 +72,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a6',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000&auto=format&fit=crop',
     title: 'UX Leadership Readiness',
     excerpt:
       'Scaling a design team requires more than hiring talent—it requires building a culture of measurement and accountability.',
@@ -80,7 +80,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a7',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop',
     title: 'The Myth of the Perfect Launch',
     excerpt:
       'Why day one is actually day zero, and how to structure your team for iterative success post-release.',
@@ -88,7 +88,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a8',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop',
     title: 'Employee Experience Matters',
     excerpt:
       'The direct link between internal tool usability and the quality of your customer-facing service delivery.',
@@ -96,7 +96,7 @@ const ARTICLES: Article[] = [
   },
   {
     id: 'a9',
-    cover: '',
+    cover: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1000&auto=format&fit=crop',
     title: 'Navigating Change Management',
     excerpt:
       'Helping large organizations transition to a modern, user-centric approach without losing institutional knowledge.',
@@ -180,16 +180,19 @@ const ArticleCard: FC<{ article: Article }> = ({ article }) => (
       hidden: { opacity: 0, y: 20 },
       visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
     }}
+    whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
     className="article-card" 
     href={article.href ?? '#'}
   >
     <div className="article-card__cover">
-      <ImgSlot
-        src={article.cover}
-        label="article cover"
-        className="article-card__img"
-        alt={article.title}
-      />
+      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }} style={{ height: "100%" }}>
+        <ImgSlot
+          src={article.cover}
+          label="article cover"
+          className="article-card__img"
+          alt={article.title}
+        />
+      </motion.div>
     </div>
     <div className="article-card__body">
       <h3 className="article-card__title">{article.title}</h3>

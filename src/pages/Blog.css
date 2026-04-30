@@ -16,7 +16,7 @@
   --white: #ffffff;
   --white-20: rgba(255, 255, 255, 0.2);
   --white-80: rgba(255, 255, 255, 0.8);
-  --black-20: rgba(0, 0, 0, 0.2);
+  --black-20: #E8E8E8;
   --gutter: 40px;
   --max-w: 1440px;
   --font: 'Instrument Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -148,7 +148,7 @@ a {
   background: rgba(243, 243, 243, 0.6);
   backdrop-filter: blur(60px);
   -webkit-backdrop-filter: blur(60px);
-  border-bottom: 0.5px solid #cbcbcb;
+  border-bottom: 0.5px solid #E8E8E8;
 }
 .nav__inner {
   max-width: var(--max-w);

@@ -173,6 +173,7 @@ const Stats: FC = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.5 }}
+            whileHover={{ scale: 1.1, color: "var(--primary)" }}
             key={i} 
             className="stat"
           >
@@ -233,13 +234,21 @@ const Founder: FC = () => (
         </div>
         <div className="founder__experience">
           {EXPERIENCE.map((row, i) => (
-            <div key={i} className="exp-row">
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + i * 0.08, duration: 0.5 }}
+              whileHover={{ x: 10, color: "var(--primary)" }}
+              className="exp-row"
+            >
               <div>
                 <div className="exp-row__role">{row.role}</div>
                 <div className="exp-row__company">{row.company}</div>
               </div>
               <div className="exp-row__period">{row.period}</div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>

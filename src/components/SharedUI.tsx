@@ -87,6 +87,8 @@ export function Tag({ label }: { label: string; key?: React.Key }): React.JSX.El
         color: "#1e1e1e",
         whiteSpace: "nowrap",
         display: "inline-block",
+        cursor: "default",
+        transition: "background-color 0.2s, color 0.2s, border-color 0.2s"
       }}
     >
       {label}
@@ -149,25 +151,33 @@ export function ContactSection(): React.JSX.Element {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   return (
-    <section id="contact" style={{ backgroundColor: "#f3f3f3", width: "100%", position: "relative", zIndex: 10 }}>
+    <section id="contact" style={{ backgroundColor: "#f3f3f3", width: "100%", position: "relative", zIndex: 10, overflow: "hidden" }}>
       <div style={{ padding: "120px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, maxWidth: 1440, margin: "0 auto" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 602 }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             style={{ fontWeight: 700, fontSize: 100, lineHeight: "88px", letterSpacing: -3, color: "#1e1e1e", margin: 0, fontFamily: font }}
           >
             Let's have a conversation
           </motion.h2>
-          <p style={{ fontWeight: 400, fontSize: 16, color: "#5d5d5d", margin: 0, maxWidth: 470, fontFamily: font }}>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            style={{ fontWeight: 400, fontSize: 16, color: "#5d5d5d", margin: 0, maxWidth: 470, fontFamily: font }}
+          >
             Whether you have a project ready or just want to talk something through, get in touch. You'll hear back within one business day.
-          </p>
+          </motion.p>
         </div>
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           style={{ backgroundColor: "white", borderRadius: 12, padding: "32px 16px", width: 603, display: "flex", flexDirection: "column", gap: 32, boxSizing: "border-box", flexShrink: 0, boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
