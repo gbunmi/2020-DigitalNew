@@ -1,6 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { motion } from 'motion/react';
 import './Works.css';
+import { ContactSection, Footer } from '../components/SharedUI';
 
 /* =============================================================================
    20/20 Digital — Works page
@@ -122,36 +123,6 @@ const QuoteMark: FC = () => (
 );
 
 // ---- Sections ---------------------------------------------------------------
-const Nav: FC = () => {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return (
-    <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
-      <div className="nav__inner">
-        <a className="nav__logo" href="#top" aria-label="20/20 Digital home">
-          <ImgSlot src={LOGO_DARK_URL} label="20/20" className="nav__logo-mark" />
-        </a>
-        <nav className="nav__links" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#works">Works</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <div className="nav__cta-wrap">
-          <button className="btn-primary btn-primary--sm" type="button">
-            Get in touch
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-};
-
 const Hero: FC = () => (
   <section className="hero" id="top">
     <motion.h1 
@@ -240,68 +211,6 @@ const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => (
   </div>
 );
 
-const Contact: FC = () => (
-  <section className="contact" id="contact">
-    <div className="contact__copy">
-      <h2 className="display-xxl">Let&rsquo;s have a conversation</h2>
-      <p className="contact__lede">
-        Whether you have a project ready or just want to talk something through, get in touch.
-        You&rsquo;ll hear back within one business day.
-      </p>
-    </div>
-    <form className="contact__form" onSubmit={(e) => e.preventDefault()}>
-      <div className="contact__fields">
-        <input className="field" type="text" placeholder="Your name" />
-        <input className="field" type="email" placeholder="Your email" />
-        <textarea className="field field--area" placeholder="Leave a message" rows={6} />
-      </div>
-      <button className="btn-primary btn-primary--lg" type="submit">
-        Send
-      </button>
-    </form>
-  </section>
-);
-
-const Footer: FC = () => (
-  <footer className="footer" id="footer">
-    <div className="footer__top">
-      <div className="footer__col">
-        <div className="footer__heading">Reach us</div>
-        <ul>
-          <li>Instagram</li>
-          <li>LinkedIn</li>
-          <li>Behance</li>
-          <li>Email</li>
-        </ul>
-      </div>
-      <div className="footer__center">
-        <ImgSlot src={LOGO_FOOTER_URL} label="20/20 Digital" className="footer__logo" />
-      </div>
-      <div className="footer__col footer__col--right">
-        <div className="footer__heading">Navigation</div>
-        <ul>
-          <li>About</li>
-          <li>Services</li>
-          <li>Experience</li>
-          <li>Contact</li>
-        </ul>
-      </div>
-    </div>
-    <div className="footer__divider" />
-    <div className="footer__meta">
-      <span>&copy; 2026 20/20 Digital</span>
-      <button
-        type="button"
-        className="footer__back"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      >
-        Back to top
-      </button>
-      <span className="footer__privacy">Privacy Policy</span>
-    </div>
-  </footer>
-);
-
 // ---- Page -------------------------------------------------------------------
 const WorksPage: FC = () => (
   <div className="works-page">
@@ -314,7 +223,7 @@ const WorksPage: FC = () => (
           ))}
         </div>
       </section>
-      <Contact />
+      <ContactSection />
     </main>
     <Footer />
   </div>

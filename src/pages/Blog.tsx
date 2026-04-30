@@ -1,6 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { motion } from 'motion/react';
 import './Blog.css';
+import { ContactSection, Footer } from '../components/SharedUI';
 
 /* =============================================================================
    20/20 Digital — Blog (Latest Articles) page
@@ -220,81 +221,6 @@ const Articles: FC = () => (
   </section>
 );
 
-const Contact: FC = () => (
-  <section className="contact" id="contact">
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="contact__copy"
-    >
-      <h2 className="display-xxl">Let&rsquo;s have a conversation</h2>
-      <p className="contact__lede">
-        Whether you have a project ready or just want to talk something through, get in touch.
-        You&rsquo;ll hear back within one business day.
-      </p>
-    </motion.div>
-    <motion.form 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="contact__form" 
-      onSubmit={(e) => e.preventDefault()}
-    >
-      <div className="contact__fields">
-        <input className="field" type="text" placeholder="Your name" />
-        <input className="field" type="email" placeholder="Your email" />
-        <textarea className="field field--area" placeholder="Leave a message" rows={6} />
-      </div>
-      <button className="btn-primary btn-primary--lg" type="submit">
-        Send
-      </button>
-    </motion.form>
-  </section>
-);
-
-const Footer: FC = () => (
-  <footer className="footer" id="footer">
-    <div className="footer__top">
-      <div className="footer__col">
-        <div className="footer__heading">Reach us</div>
-        <ul>
-          <li>Instagram</li>
-          <li>LinkedIn</li>
-          <li>Behance</li>
-          <li>Email</li>
-        </ul>
-      </div>
-      <div className="footer__center">
-        <ImgSlot src={LOGO_FOOTER_URL} label="20/20 Digital" className="footer__logo" />
-      </div>
-      <div className="footer__col footer__col--right">
-        <div className="footer__heading">Navigation</div>
-        <ul>
-          <li>About</li>
-          <li>Services</li>
-          <li>Experience</li>
-          <li>Contact</li>
-        </ul>
-      </div>
-    </div>
-    <div className="footer__divider" />
-    <div className="footer__meta">
-      <span>&copy; 2026 20/20 Digital</span>
-      <button
-        type="button"
-        className="footer__back"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      >
-        Back to top
-      </button>
-      <span className="footer__privacy">Privacy Policy</span>
-    </div>
-  </footer>
-);
-
 // ---- Page -------------------------------------------------------------------
 const Blog: FC = () => (
   <>
@@ -302,7 +228,7 @@ const Blog: FC = () => (
     <main>
       <Hero />
       <Articles />
-      <Contact />
+      <ContactSection />
     </main>
     <Footer />
   </>
