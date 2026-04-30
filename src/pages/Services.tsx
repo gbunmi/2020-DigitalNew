@@ -131,8 +131,12 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
             <span className="service__bar" aria-hidden="true" />
             <h2 className="display-s">{service.title}</h2>
           </div>
-          <button className="btn-primary btn-primary--sm" type="button">
-            Get in touch
+          <button 
+            className="btn-primary btn-primary--sm" 
+            type="button"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            Learn more
           </button>
         </motion.div>
         <motion.div 
