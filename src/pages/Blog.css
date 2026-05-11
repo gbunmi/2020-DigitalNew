@@ -85,7 +85,7 @@ a {
   color: var(--text);
 }
 .lede {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.4px;
   color: var(--grey-1);
@@ -319,18 +319,18 @@ a {
     margin-bottom: 48px;
   }
   .articles {
-    padding: 48px 24px;
+    padding: 48px var(--gutter);
   }
   .articles__grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    row-gap: 48px;
   }
   .article-card__cover {
-    height: 200px;
+    height: auto;
   }
   .contact {
     flex-direction: column;
-    padding: 60px 24px;
+    padding: 60px var(--gutter);
   }
   .contact__form {
     width: 100%;

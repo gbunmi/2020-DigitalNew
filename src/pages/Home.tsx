@@ -73,7 +73,21 @@ const testimonials: Testimonial[] = [
   { quote: "Implementation was seamless. The attention to detail in the design system and the clear advisory role they took helped our internal team level up significantly. A truly collaborative partnership.", name: "David Chen", role: "Head of Design, Global Gov Services", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400" },
 ];
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+  return matches;
+}
+
 function ServiceCardComponent({ service, height }: { service: ServiceCard; height: number }): React.JSX.Element {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -84,18 +98,20 @@ function ServiceCardComponent({ service, height }: { service: ServiceCard; heigh
       style={{
         backgroundColor: service.bg,
         borderRadius: "24px",
-        padding: "64px 40px 40px",
-        height,
+        padding: isMobile ? "40px 24px" : "64px 40px 40px",
+        height: isMobile ? "auto" : height,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        gap: isMobile ? 32 : 0,
         overflow: "hidden",
         boxSizing: "border-box",
+        cursor: "default",
       }}
     >
       <div>
         {service.title.map((line, i) => (
-          <div key={i} style={{ fontFamily: font, fontWeight: 700, fontSize: 36, lineHeight: "44px", letterSpacing: -0.72, color: service.text }}>
+          <div key={i} style={{ fontFamily: font, fontWeight: 700, fontSize: isMobile ? 28 : 36, lineHeight: isMobile ? "34px" : "44px", letterSpacing: -0.72, color: service.text }}>
             {line}
           </div>
         ))}
@@ -108,6 +124,8 @@ function ServiceCardComponent({ service, height }: { service: ServiceCard; heigh
 }
 
 function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const imageBlock = (
     <motion.div 
       initial={{ scale: 0.9, opacity: 0 }}
@@ -116,8 +134,8 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       transition={{ duration: 0.6 }}
       style={{ 
         flexShrink: 0, 
-        width: 656, 
-        height: 484, 
+        width: isMobile ? "100%" : 656, 
+        height: isMobile ? 300 : 484, 
         borderRadius: "24px", 
         overflow: "hidden", 
         backgroundColor: "#c4c4c4",
@@ -138,22 +156,22 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
     </motion.div>
   );
   const textBlock = (
-    <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "24px 0", minWidth: 0 }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: isMobile ? "0" : "24px 0", minWidth: 0, gap: isMobile ? 24 : 0 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 48 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div><Tag label={work.year} /></div>
           <motion.h3 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            style={{ fontFamily: font, fontWeight: 600, fontSize: 36, lineHeight: "44px", letterSpacing: -0.72, color: "#1e1e1e", margin: 0 }}
+            style={{ fontFamily: font, fontWeight: 600, fontSize: isMobile ? 28 : 36, lineHeight: isMobile ? "34px" : "44px", letterSpacing: -0.72, color: "#1e1e1e", margin: 0 }}
           >
             {work.title}
           </motion.h3>
         </div>
         <p style={{ fontFamily: font, fontWeight: 400, fontSize: 16, color: "#5d5d5d", margin: 0, maxWidth: 568, whiteSpace: "pre-line" }}>{work.desc}</p>
       </div>
-      <div style={{ display: "flex", gap: 8 }}>{work.tags.map((t) => <React.Fragment key={t}><Tag label={t} /></React.Fragment>)}</div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>{work.tags.map((t) => <React.Fragment key={t}><Tag label={t} /></React.Fragment>)}</div>
     </div>
   );
 
@@ -165,15 +183,29 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       transition={{ duration: 0.7 }}
       onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
       onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
-      style={{ backgroundColor: "white", borderRadius: "24px", padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid #f0f0f0", cursor: "none" }}
+      style={{ 
+        backgroundColor: "white", 
+        borderRadius: "24px", 
+        padding: isMobile ? 16 : 24, 
+        height: isMobile ? "auto" : 532, 
+        display: "flex", 
+        flexDirection: isMobile ? "column" : "row",
+        gap: isMobile ? 32 : 48, 
+        overflow: "hidden", 
+        boxSizing: "border-box", 
+        border: "1px solid #f0f0f0", 
+        cursor: "none" 
+      }}
       whileHover={{ transform: "translateY(-4px)", boxShadow: "0 20px 40px rgba(0,0,0,0.05)" }}
     >
-      {work.imgFirst ? <>{imageBlock}{textBlock}</> : <>{textBlock}{imageBlock}</>}
+      {work.imgFirst || isMobile ? <>{imageBlock}{textBlock}</> : <>{textBlock}{imageBlock}</>}
     </motion.div>
   );
 }
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.JSX.Element {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }}
@@ -183,36 +215,37 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
         backgroundColor: "white", 
         borderRadius: "24px", 
         display: "flex", 
+        flexDirection: isMobile ? "column" : "row",
         overflow: "hidden", 
-        width: 962, 
-        height: 360, 
+        width: isMobile ? "calc(100vw - 32px)" : 962, 
+        height: isMobile ? "auto" : 360, 
         flexShrink: 0, 
         scrollSnapAlign: "start" as const,
         transform: "translateZ(0)",
         WebkitMaskImage: "-webkit-radial-gradient(white, black)"
       }}
     >
-      <div style={{ width: 300, height: "100%", backgroundColor: "#c4c4c4", flexShrink: 0, overflow: "hidden", borderRadius: "24px" }}>
+      <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 240 : "100%", backgroundColor: "#c4c4c4", flexShrink: 0, overflow: "hidden", borderRadius: isMobile ? "24px 24px 0 0" : "24px" }}>
         {testimonial.img && (
           <img 
             src={testimonial.img} 
             alt={testimonial.name} 
             referrerPolicy="no-referrer"
-            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         )}
       </div>
-      <div style={{ flex: 1, padding: "62px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 64 }}>
+      <div style={{ flex: 1, padding: isMobile ? "32px 24px" : "62px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 32 : 64 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 26V15.6C0 10.92 1.08 7.28 3.24 4.68C5.48 2.08 8.6 0.4 12.6 0L13.8 4.2C11.4 4.68 9.52 5.72 8.16 7.32C6.88 8.92 6.2 10.84 6.12 13.08H12.6V26H0ZM18.6 26V15.6C18.6 10.92 19.68 7.28 21.84 4.68C24.08 2.08 27.2 0.4 31.2 0L32.4 4.2C30 4.68 28.12 5.72 26.76 7.32C25.48 8.92 24.8 10.84 24.72 13.08H31.2V26H18.6Z" fill="#1e1e1e"/>
             </svg>
-            <p style={{ fontFamily: font, fontWeight: 600, fontSize: 18, lineHeight: "26px", letterSpacing: -0.09, color: "#1e1e1e", margin: 0 }}>{testimonial.quote}</p>
+            <p style={{ fontFamily: font, fontWeight: 600, fontSize: isMobile ? 16 : 18, lineHeight: isMobile ? "24px" : "26px", letterSpacing: -0.09, color: "#1e1e1e", margin: 0 }}>{testimonial.quote}</p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span style={{ fontFamily: font, fontWeight: 600, fontSize: 24, lineHeight: "32px", letterSpacing: -0.48, color: "#1e1e1e" }}>{testimonial.name}</span>
-            <span style={{ fontFamily: font, fontWeight: 500, fontSize: 16, lineHeight: "26px", letterSpacing: -0.08, color: "#5d5d5d" }}>{testimonial.role}</span>
+            <span style={{ fontFamily: font, fontWeight: 600, fontSize: isMobile ? 20 : 24, lineHeight: isMobile ? "28px" : "32px", letterSpacing: -0.48, color: "#1e1e1e" }}>{testimonial.name}</span>
+            <span style={{ fontFamily: font, fontWeight: 500, fontSize: 14, lineHeight: "26px", letterSpacing: -0.08, color: "#5d5d5d" }}>{testimonial.role}</span>
           </div>
         </div>
       </div>
@@ -223,17 +256,18 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
 export default function Home(): React.JSX.Element {
   const [isHeroPaused, setIsHeroPaused] = useState(false);
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <div style={{ fontFamily: font, overflowX: "hidden" }}>
       {/* Hero */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: "100px 0 120px", display: "flex", flexDirection: "column", gap: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", padding: "0 40px", gap: 10, alignItems: "flex-end", justifyContent: "flex-start", margin: "0 auto", width: "100%" }}>
+      <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "60px 0 80px" : "100px 0 120px", display: "flex", flexDirection: "column", gap: isMobile ? 40 : 80, overflow: "hidden" }}>
+        <div style={{ display: "flex", padding: "0 var(--gutter)", gap: 10, alignItems: "flex-end", justifyContent: "flex-start", margin: "0 auto", width: "100%" }}>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            style={{ fontWeight: 600, fontSize: 72, lineHeight: "72px", letterSpacing: -2.16, color: "#1e1e1e", maxWidth: 869, margin: 0, textAlign: "left" }}
+            style={{ fontWeight: 600, fontSize: isMobile ? 40 : 72, lineHeight: isMobile ? "44px" : "72px", letterSpacing: isMobile ? -1 : -2.16, color: "#1e1e1e", maxWidth: 869, margin: 0, textAlign: "left" }}
           >
             Better products and services start with understanding people.
           </motion.h1>
@@ -248,10 +282,10 @@ export default function Home(): React.JSX.Element {
             onMouseLeave={() => setIsHeroPaused(false)}
             style={{ 
               display: "flex", 
-              gap: 24, 
-              paddingLeft: 24, 
+              gap: isMobile ? 12 : 24, 
+              paddingLeft: isMobile ? 16 : 24, 
               width: "max-content",
-              animationDuration: "30s",
+              animationDuration: isMobile ? "20s" : "30s",
               animationPlayState: isHeroPaused ? "paused" : "running"
             }}
             whileHover={{ scale: 0.98, transition: { duration: 0.8 } }}
@@ -259,12 +293,12 @@ export default function Home(): React.JSX.Element {
             {[...Array(2)].map((_, listIdx) => (
               <React.Fragment key={listIdx}>
                 {[
-                  { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%201.jpg", w: 454, h: 451, mt: 0 },
-                  { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%202.jpg", w: 523, h: 404, mt: 30 },
-                  { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%203.png", w: 431, h: 460, mt: -10 },
-                  { src: "https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&q=80&w=600", w: 490, h: 420, mt: 20 },
-                  { src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600", w: 510, h: 480, mt: -20 },
-                  { src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=600", w: 460, h: 440, mt: 40 }
+                  { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%201.jpg", w: isMobile ? 280 : 454, h: isMobile ? 280 : 451, mt: 0 },
+                  { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%202.jpg", w: isMobile ? 320 : 523, h: isMobile ? 250 : 404, mt: isMobile ? 10 : 30 },
+                  { src: "https://raw.githubusercontent.com/gbunmi/images/main/Hero%203.png", w: isMobile ? 260 : 431, h: isMobile ? 280 : 460, mt: isMobile ? -5 : -10 },
+                  { src: "https://images.unsplash.com/photo-1542621334-a254cf47733d?auto=format&fit=crop&q=80&w=600", w: isMobile ? 300 : 490, h: isMobile ? 260 : 420, mt: isMobile ? 6 : 20 },
+                  { src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600", w: isMobile ? 310 : 510, h: isMobile ? 290 : 480, mt: isMobile ? -10 : -20 },
+                  { src: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=600", w: isMobile ? 280 : 460, h: isMobile ? 270 : 440, mt: isMobile ? 15 : 40 }
                 ].map((img, i) => (
                   <motion.div
                     key={`${listIdx}-${i}`}
@@ -311,10 +345,10 @@ export default function Home(): React.JSX.Element {
         whileInView={{ backgroundColor: "#d73a3b" }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        style={{ padding: "80px 0" }}
+        style={{ padding: isMobile ? "60px 0" : "80px 0" }}
       >
-        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 var(--gutter)", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
+          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between", gap: isMobile ? 32 : 0 }}>
             {["Research", "Strategy", "Design"].map((p, i) => (
               <motion.div 
                 key={p} 
@@ -324,8 +358,8 @@ export default function Home(): React.JSX.Element {
                 transition={{ delay: i * 0.2 }}
                 style={{ flex: 1, display: "flex", alignItems: "center", gap: 12 }}
               >
-                <div style={{ width: 8, height: 40, backgroundColor: "rgba(255,255,255,0.7)" }} />
-                <span style={{ fontWeight: 600, fontSize: 48, lineHeight: "54px", letterSpacing: -1.44, color: "white" }}>{p}</span>
+                <div style={{ width: 8, height: isMobile ? 32 : 40, backgroundColor: "rgba(255,255,255,0.7)" }} />
+                <span style={{ fontWeight: 600, fontSize: isMobile ? 32 : 48, lineHeight: isMobile ? "38px" : "54px", letterSpacing: -1.44, color: "white" }}>{p}</span>
               </motion.div>
             ))}
           </div>
@@ -333,7 +367,7 @@ export default function Home(): React.JSX.Element {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            style={{ fontWeight: 600, fontSize: 24, lineHeight: "32px", letterSpacing: -0.48, color: "white", maxWidth: 443, margin: 0 }}
+            style={{ fontWeight: 600, fontSize: isMobile ? 20 : 24, lineHeight: isMobile ? "28px" : "32px", letterSpacing: -0.48, color: "white", maxWidth: 443, margin: 0 }}
           >
             Working with organizations across industries, from the first research question through design and delivery.
           </motion.p>
@@ -341,17 +375,17 @@ export default function Home(): React.JSX.Element {
       </motion.section>
 
       {/* Services Context */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0" }}>
-        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+      <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "80px 0" : "120px 0" }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 var(--gutter)", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
           <motion.h2 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", textAlign: "center", margin: 0 }}
+            style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", textAlign: isMobile ? "left" : "center", margin: 0 }}
           >
             The Right help at any stage
           </motion.h2>
-          <div style={{ display: "flex", gap: 24 }}>
+          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 24 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 24, flex: 1 }}>
               <ServiceCardComponent service={services[0]} height={321} />
               <ServiceCardComponent service={services[2]} height={375} />
@@ -365,15 +399,15 @@ export default function Home(): React.JSX.Element {
       </section>
 
       {/* About Section */}
-      <section style={{ backgroundColor: "#d73a3b", padding: "120px 0" }}>
-        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+      <section style={{ backgroundColor: "#d73a3b", padding: isMobile ? "80px 0" : "120px 0" }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 var(--gutter)", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 32 : 40 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
               <motion.h2 
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "white", margin: 0 }}
+                style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "white", margin: 0 }}
               >
                 Who we are
               </motion.h2>
@@ -404,7 +438,7 @@ export default function Home(): React.JSX.Element {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             style={{ 
-              height: 545, 
+              height: isMobile ? 300 : 545, 
               borderRadius: "24px", 
               overflow: "hidden", 
               backgroundColor: "#c4c4c4",
@@ -426,18 +460,18 @@ export default function Home(): React.JSX.Element {
       </section>
 
       {/* Works Section */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0 0" }}>
-        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 80 }}>
+      <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "80px 0 0" : "120px 0 0" }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 var(--gutter)", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0 }}
+              style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0 }}
             >
               Featured Works
             </motion.h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 64, alignItems: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 40 : 64, alignItems: "center" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%" }}>
                 {works.map((w, i) => <React.Fragment key={i}><WorkCard work={w} /></React.Fragment>)}
               </div>
@@ -456,13 +490,13 @@ export default function Home(): React.JSX.Element {
       </section>
 
       {/* Testimonials */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0", display: "flex", flexDirection: "column", gap: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", justifyContent: "center", padding: "0 40px", margin: "0 auto", width: "100%" }}>
+      <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "80px 0" : "120px 0", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80, overflow: "hidden" }}>
+        <div style={{ display: "flex", justifyContent: "center", padding: "0 var(--gutter)", margin: "0 auto", width: "100%" }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            style={{ fontWeight: 700, fontSize: 56, lineHeight: "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0, textAlign: "center" }}
+            style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0, textAlign: isMobile ? "left" : "center" }}
           >
             What people say about us
           </motion.h2>
@@ -474,10 +508,10 @@ export default function Home(): React.JSX.Element {
             onMouseLeave={() => setIsTestimonialPaused(false)}
             style={{ 
               display: "flex", 
-              gap: 40, 
+              gap: isMobile ? 16 : 40, 
               width: "max-content", 
-              paddingLeft: 40,
-              animationDuration: "60s",
+              paddingLeft: isMobile ? 16 : 40,
+              animationDuration: isMobile ? "40s" : "60s",
               animationPlayState: isTestimonialPaused ? "paused" : "running"
             }}
           >

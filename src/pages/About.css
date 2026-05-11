@@ -105,7 +105,7 @@ a {
 }
 
 .lede {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.4px;
   color: var(--grey-1);
@@ -552,81 +552,122 @@ a {
 }
 @media (max-width: 800px) {
   .display-l {
-    font-size: 48px;
+    font-size: 40px;
     line-height: 1;
+    letter-spacing: -1px;
   }
   .display-m {
-    font-size: 40px;
+    font-size: 32px;
     line-height: 1;
   }
   .display-xl {
-    font-size: 56px;
+    font-size: 48px;
     line-height: 1;
   }
   .about-page .hero {
-    padding: 80px 24px 80px;
+    padding: 80px var(--gutter) 60px;
   }
   .about-page .hero .display-l {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
   .about-page .hero .lede {
-    margin-bottom: 48px;
+    margin-bottom: 32px;
+  }
+  .about-page .hero__image-wrap {
+    height: 300px;
   }
   .focus > .container {
-    padding: 60px 24px;
+    padding: 60px var(--gutter);
+    gap: 60px;
   }
   .focus__grid {
     grid-template-columns: 1fr;
   }
   .services > .container {
-    padding: 0 24px 60px;
+    padding: 0 var(--gutter) 60px;
   }
   .services__row {
-    gap: 12px;
+    gap: 10px;
   }
   .pill {
-    padding: 12px 16px;
+    padding: 10px 14px;
   }
   .pill__label {
-    font-size: 16px;
+    font-size: 14px;
   }
   .founder > .container {
-    padding: 0 24px 60px;
-    gap: 48px;
+    padding: 0 var(--gutter) 60px;
+    gap: 32px;
   }
   .founder__card {
     flex-direction: column;
-    padding: 16px;
-    gap: 32px;
+    padding: 12px;
+    gap: 24px;
   }
   .founder__photo {
     width: 100%;
     aspect-ratio: 1;
     height: auto;
   }
+  .founder__name-block {
+    left: 16px;
+    bottom: 24px;
+  }
+  .founder__name {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  .founder__experience {
+    width: 100%;
+  }
+  .exp-row__role {
+    font-size: 16px;
+  }
   .bio > .container {
-    padding: 60px 24px;
+    padding: 60px var(--gutter);
+  }
+  .bio__logo {
+    width: 100px !important;
+    height: auto !important;
   }
   .bio__copy {
     width: 100%;
+    gap: 24px;
+  }
+  .bio__lede {
+    font-size: 18px;
+    line-height: 26px;
+  }
+  .bio__copy p:not(.bio__lede) {
+    font-size: 16px;
+    line-height: 24px;
   }
   .focus-card {
-    height: auto;
-    min-height: 220px;
+    padding: 32px 24px;
+    min-height: auto;
+  }
+  .focus-card__inner {
+    min-height: auto;
   }
   .focus-card__num-ghost {
-    font-size: 120px;
-    line-height: 100px;
+    font-size: 80px;
+    line-height: 60px;
+    top: 20px;
+    right: 16px;
   }
   .stats__row {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     padding-right: 0;
   }
   .stat {
     margin-right: 0;
     width: 100%;
     aspect-ratio: auto;
-    height: 200px;
+    height: 140px;
+    border-radius: 24px;
+  }
+  .stat__value {
+    font-size: 40px;
   }
 }

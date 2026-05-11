@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import Home from "./pages/Home";
+/* ... rest of imports ... */
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
@@ -21,7 +23,6 @@ function ScrollToTop() {
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
       if (element) {
-        // Use a small timeout to ensure layout has settled
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
         }, 100);
@@ -35,40 +36,42 @@ function ScrollToTop() {
 
 function Navbar(): React.JSX.Element {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   return (
     <motion.nav 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
+      className="sticky z-50 mx-auto"
       style={{ 
-        position: "sticky", 
         top: 20, 
-        zIndex: 50, 
         maxWidth: 1120,
-        margin: "20px auto",
-        width: "calc(100% - 80px)",
+        width: "calc(100% - var(--gutter) * 2)",
         backdropFilter: "blur(60px)", 
         WebkitBackdropFilter: "blur(60px)", 
         backgroundColor: "rgba(243, 243, 243, 0.75)", 
         border: "0.5px solid #E8E8E8",
-        borderRadius: 100,
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)"
+        borderRadius: isMobileMenuOpen ? 24 : 100,
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
+        margin: "20px auto"
       }}
     >
-      <div style={{ width: "100%", padding: "8px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", padding: "8px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }} onClick={() => setIsMobileMenuOpen(false)}>
             <motion.img 
               whileHover={{ scale: 1.05 }}
               src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
               alt="20/20 Digital Logo"
               referrerPolicy="no-referrer"
-              style={{ height: 32, width: "auto", cursor: "pointer", display: "block" }}
+              style={{ height: 28, width: "auto", cursor: "pointer", display: "block" }}
             />
           </Link>
         </div>
-        <div style={{ flex: 1.2, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: 600, fontSize: 13, color: "#1e1e1e" }}>
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex flex-[1.2] items-center justify-between font-semibold text-[13px] text-[#1e1e1e]">
           {["About", "Services", "Works", "Blog"].map((item) => {
             const path = `/${item.toLowerCase()}`;
             const isActive = location.pathname === path;
@@ -87,13 +90,78 @@ function Navbar(): React.JSX.Element {
           </Link>
         </div>
 
-        {/* CTA Container */}
-        <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+        {/* Desktop CTA */}
+        <div className="hidden md:flex flex-1 justify-end">
           <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none" }}>
             <CTAButton label="Get in touch" />
           </Link>
         </div>
+
+        {/* Mobile Toggle */}
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="md:hidden overflow-hidden"
+          >
+            <div style={{ padding: "0 16px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
+              {["About", "Services", "Works", "Blog"].map((item) => {
+                const path = `/${item.toLowerCase()}`;
+                const isActive = location.pathname === path;
+                return (
+                  <Link 
+                    key={item}
+                    to={path} 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{ 
+                      color: isActive ? "#d73a3b" : "#1e1e1e", 
+                      textDecoration: "none",
+                      fontSize: 18,
+                      fontWeight: 600,
+                      fontFamily: font,
+                      padding: "8px 0"
+                    }}
+                  >
+                    {item}
+                  </Link>
+                );
+              })}
+              <Link 
+                to={{ pathname: location.pathname, hash: "#contact" }} 
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{ 
+                  color: "#1e1e1e", 
+                  textDecoration: "none",
+                  fontSize: 18,
+                  fontWeight: 600,
+                  fontFamily: font,
+                  padding: "8px 0"
+                }}
+              >
+                Contact
+              </Link>
+              <div style={{ paddingTop: 8 }}>
+                <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none" }} onClick={() => setIsMobileMenuOpen(false)}>
+                  <CTAButton label="Get in touch" fullWidth />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }

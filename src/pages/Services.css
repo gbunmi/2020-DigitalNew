@@ -87,7 +87,7 @@ a {
   white-space: nowrap;
 }
 .lede {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.4px;
   color: var(--grey-1);
@@ -336,7 +336,9 @@ a {
 }
 @media (max-width: 800px) {
   .display-xl {
-    font-size: 48px;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -1.2px;
   }
   .display-xxl {
     font-size: 56px;
@@ -344,33 +346,34 @@ a {
   }
   .display-s {
     font-size: 28px;
-    line-height: 1.1;
+    line-height: 1.2;
   }
   .services-page .hero {
-    padding: 80px 24px 0;
+    padding: 80px var(--gutter) 0;
   }
   .services-page .hero .display-xl {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
   .services-page .hero .lede {
-    margin-bottom: 48px;
+    margin-bottom: 32px;
   }
   .service__inner {
-    padding: 48px 24px 0;
+    padding: 48px var(--gutter) 0;
   }
   .service--last .service__inner {
     padding-bottom: 60px;
   }
   .service__divider {
     margin-top: 48px;
-    width: calc(100% - 48px);
+    width: calc(100% - 32px);
   }
   .service__header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
   }
   .service__image {
-    height: 280px;
+    height: 240px;
   }
   .service__pillars {
     flex-direction: column;

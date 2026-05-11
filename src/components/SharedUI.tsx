@@ -6,6 +6,22 @@ import { ArrowUpRight } from "lucide-react";
 
 const font = "'Instrument Sans', sans-serif";
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+
+  return matches;
+}
+
 // ── Shared Types ──
 export interface PlaceholderProps {
   width?: number | string;
@@ -150,17 +166,18 @@ export function TextRoll({ text, color = "inherit", hoverColor, fontSize = 14, f
 
 export function ContactSection(): React.JSX.Element {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <section id="contact" style={{ backgroundColor: "#f3f3f3", width: "100%", position: "relative", zIndex: 10, overflow: "hidden" }}>
-      <div style={{ padding: "120px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, width: "100%", margin: "0 auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 602 }}>
+      <div style={{ padding: isMobile ? "80px var(--gutter)" : "120px 40px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: isMobile ? 48 : 40, width: "100%", margin: "0 auto", boxSizing: "border-box" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32, maxWidth: 602 }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontWeight: 700, fontSize: 100, lineHeight: "88px", letterSpacing: -3, color: "#1e1e1e", margin: 0, fontFamily: font }}
+            style={{ fontWeight: 700, fontSize: isMobile ? 48 : 100, lineHeight: isMobile ? "48px" : "88px", letterSpacing: isMobile ? -1.5 : -3, color: "#1e1e1e", margin: 0, fontFamily: font }}
           >
             Let's have a conversation
           </motion.h2>
@@ -179,12 +196,12 @@ export function ContactSection(): React.JSX.Element {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ backgroundColor: "white", borderRadius: 12, padding: "32px 16px", width: 603, display: "flex", flexDirection: "column", gap: 32, boxSizing: "border-box", flexShrink: 0, boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}
+          style={{ backgroundColor: "white", borderRadius: 12, padding: isMobile ? "24px 16px" : "32px 16px", width: isMobile ? "100%" : 603, display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32, boxSizing: "border-box", flexShrink: 0, boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <input type="text" placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ height: 48, border: "0.5px solid #cecece", borderRadius: 8, padding: "0 16px", fontSize: 14, outline: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
             <input type="email" placeholder="Your email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={{ height: 48, border: "0.5px solid #cecece", borderRadius: 8, padding: "0 16px", fontSize: 14, outline: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
-            <textarea placeholder="Leave a message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ height: 196, border: "0.5px solid #cecece", borderRadius: 8, padding: 16, fontSize: 14, outline: "none", resize: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
+            <textarea placeholder="Leave a message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ height: isMobile ? 140 : 196, border: "0.5px solid #cecece", borderRadius: 8, padding: 16, fontSize: 14, outline: "none", resize: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
           </div>
           <CTAButton label="Send" fullWidth large onClick={() => console.log("Form submitted", form)} />
         </motion.div>
@@ -257,53 +274,57 @@ export function CustomCursor(): React.JSX.Element {
 }
 
 export function Footer(): React.JSX.Element {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
-    <footer id="footer" style={{ width: "100%", padding: "0 24px 24px 24px", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
+    <footer id="footer" style={{ width: "100%", padding: isMobile ? "0 16px 16px 16px" : "0 24px 24px 24px", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
       <div style={{ 
         backgroundColor: "#d73a3b", 
-        borderRadius: 48, 
-        padding: "64px 40px", 
+        borderRadius: isMobile ? 32 : 48, 
+        padding: isMobile ? "48px 24px" : "64px 40px", 
         display: "flex", 
         flexDirection: "column", 
         gap: 32, 
         width: "100%",
         margin: "0 auto" 
       }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 32 : 40 }}>
+          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between", alignItems: isMobile ? "flex-start" : "flex-end", gap: isMobile ? 48 : 0 }}>
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: isMobile ? 24 : 24 }}>
               <span style={{ fontWeight: 500, fontSize: 16, lineHeight: "26px", letterSpacing: -0.08, color: "white", fontFamily: font }}>Reach us</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 24 }}>
                 {["Instagram", "LinkedIn", "Behance", "Email"].map((l) => (
                   <a 
                     key={l} 
                     href="#" 
                     style={{ color: "white", textDecoration: "none", display: "inline-block" }}
                   >
-                    <TextRoll text={l} fontSize={24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />
+                    <TextRoll text={l} fontSize={isMobile ? 18 : 24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />
                   </a>
                 ))}
               </div>
             </div>
-            <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <motion.img 
-                whileHover={{ rotate: [0, -5, 5, 0] }}
-                src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
-                alt="20/20 Digital Logo"
-                referrerPolicy="no-referrer"
-                style={{ height: 40, width: "auto", cursor: "pointer", display: "block" }}
-              />
-            </div>
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24, alignItems: "flex-end" }}>
+            {!isMobile && (
+              <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <motion.img 
+                  whileHover={{ rotate: [0, -5, 5, 0] }}
+                  src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
+                  alt="20/20 Digital Logo"
+                  referrerPolicy="no-referrer"
+                  style={{ height: 40, width: "auto", cursor: "pointer", display: "block" }}
+                />
+              </div>
+            )}
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24, alignItems: isMobile ? "flex-start" : "flex-end" }}>
               <span style={{ fontWeight: 500, fontSize: 16, lineHeight: "26px", letterSpacing: -0.08, color: "white", fontFamily: font }}>Navigation</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24, alignItems: "flex-end" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 16, alignItems: isMobile ? "flex-start" : "flex-end" }}>
                 {["About", "Services", "Experience", "Blog", "Contact"].map((l) => (
                   <Link 
                     key={l}
                     to={l === "Contact" ? "#contact" : l === "Experience" ? "/about" : `/${l.toLowerCase()}`} 
                     style={{ color: "white", textDecoration: "none", display: "inline-block" }}
                   >
-                    <TextRoll text={l} fontSize={24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />
+                    <TextRoll text={l} fontSize={isMobile ? 18 : 24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />
                   </Link>
                 ))}
               </div>
@@ -316,9 +337,17 @@ export function Footer(): React.JSX.Element {
             style={{ width: "100%", height: 1, backgroundColor: "rgba(255,255,255,0.2)", transformOrigin: "center" }} 
           />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, letterSpacing: -0.32 }}>
-          <span style={{ flex: 1, fontWeight: 500, color: "rgba(255,255,255,0.8)", fontFamily: font }}>© 2026 20/20 Digital</span>
-          <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 32 : 0, fontSize: 16, letterSpacing: -0.32 }}>
+          {isMobile && (
+            <motion.img 
+              src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
+              alt="20/20 Digital Logo"
+              referrerPolicy="no-referrer"
+              style={{ height: 32, width: "auto", display: "block", marginBottom: 8 }}
+            />
+          )}
+          <span style={{ flex: 1, fontWeight: 500, color: "rgba(255,255,255,0.8)", fontFamily: font, textAlign: "left" }}>© 2026 20/20 Digital</span>
+          <div style={{ flex: 1, display: "flex", justifyContent: isMobile ? "flex-start" : "center" }}>
             <motion.span
               style={{ fontWeight: 700, color: "white", cursor: "pointer", display: "inline-block" }}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -326,7 +355,7 @@ export function Footer(): React.JSX.Element {
               <TextRoll text="Back to top" fontSize={16} fontWeight={700} hoverColor="rgba(255,255,255,0.6)" />
             </motion.span>
           </div>
-          <a href="#" style={{ flex: 1, display: "flex", justifyContent: "flex-end", textDecoration: "none" }}>
+          <a href="#" style={{ flex: 1, display: "flex", justifyContent: isMobile ? "flex-start" : "flex-end", textDecoration: "none" }}>
             <TextRoll text="Privacy Policy" fontSize={16} fontWeight={700} color="white" hoverColor="rgba(255,255,255,0.6)" />
           </a>
         </div>

@@ -80,7 +80,7 @@ const PartnerTile: FC<{ partner: Partner }> = ({ partner }) => {
       </a>
     );
   }
-  return <div className="partner">{inner}</div>;
+  return <div className="partner" style={{ backgroundColor: "transparent" }}>{inner}</div>;
 };
 
 export const Partners: FC<PartnersProps> = ({
