@@ -1,7 +1,8 @@
-import { useState, CSSProperties } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import * as React from "react";
-import { motion } from "motion/react";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 const font = "'Instrument Sans', sans-serif";
 
@@ -152,7 +153,7 @@ export function ContactSection(): React.JSX.Element {
 
   return (
     <section id="contact" style={{ backgroundColor: "#f3f3f3", width: "100%", position: "relative", zIndex: 10, overflow: "hidden" }}>
-      <div style={{ padding: "120px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, maxWidth: 1440, margin: "0 auto" }}>
+      <div style={{ padding: "120px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, width: "100%", margin: "0 auto" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 32, maxWidth: 602 }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
@@ -192,10 +193,82 @@ export function ContactSection(): React.JSX.Element {
   );
 }
 
+export function CustomCursor(): React.JSX.Element {
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
+
+  const springConfig = { damping: 25, stiffness: 250 };
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
+
+  const [cursorState, setCursorState] = useState<{ active: boolean; text?: string }>({ active: false });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    const handleCursorChange = (e: any) => {
+      if (e.detail) {
+        setCursorState(e.detail);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("cursorChange", handleCursorChange);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("cursorChange", handleCursorChange);
+    };
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: 80,
+        height: 80,
+        borderRadius: "50%",
+        backgroundColor: "rgba(243, 243, 243, 0.75)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        border: "0.5px solid rgba(0,0,0,0.05)",
+        pointerEvents: "none",
+        zIndex: 9999,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        x: cursorX,
+        y: cursorY,
+        translateX: "-50%",
+        translateY: "-50%",
+        scale: cursorState.active ? 1 : 0,
+        opacity: cursorState.active ? 1 : 0,
+      }}
+      transition={{ scale: { type: "spring", stiffness: 300, damping: 30 } }}
+    >
+      <ArrowUpRight size={32} color="#1e1e1e" />
+    </motion.div>
+  );
+}
+
 export function Footer(): React.JSX.Element {
   return (
-    <footer id="footer" style={{ backgroundColor: "#d73a3b", width: "100%", position: "relative", zIndex: 10 }}>
-      <div style={{ padding: "64px 40px", display: "flex", flexDirection: "column", gap: 32, maxWidth: 1440, margin: "0 auto" }}>
+    <footer id="footer" style={{ width: "100%", padding: "0 24px 24px 24px", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
+      <div style={{ 
+        backgroundColor: "#d73a3b", 
+        borderRadius: 48, 
+        padding: "64px 40px", 
+        display: "flex", 
+        flexDirection: "column", 
+        gap: 32, 
+        width: "100%",
+        margin: "0 auto" 
+      }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24 }}>

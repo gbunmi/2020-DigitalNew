@@ -143,6 +143,9 @@ const Focus: FC = () => (
             viewport={{ once: true }}
             transition={{ delay: i * 0.1, duration: 0.5 }}
             whileHover={{ y: -8, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+            onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+            onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
+            style={{ cursor: "none" }}
             key={f.n} 
             className="focus-card"
           >

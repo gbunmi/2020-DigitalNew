@@ -181,6 +181,9 @@ const ArticleCard: FC<{ article: Article }> = ({ article }) => (
       visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
     }}
     whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+    onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+    onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
+    style={{ cursor: "none" }}
     className="article-card" 
     href={article.href ?? '#'}
   >

@@ -14,7 +14,7 @@
   --grey-2: #969696;
   --ui-light: #f3f3f3;
   --gutter: 40px;
-  --max-w: 1440px;
+  --max-w: none;
   --font: 'Instrument Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
@@ -80,6 +80,7 @@ a.partner:hover {
   max-height: 70%;
   object-fit: contain;
   display: block;
+  mix-blend-mode: multiply;
   /* Optional: uncomment for monochrome logo treatment.
      filter: grayscale(1);
   */

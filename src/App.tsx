@@ -8,7 +8,7 @@ import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import Works from "./pages/Works";
 import ComingSoon from "./pages/ComingSoon";
-import { CTAButton, TextRoll } from "./components/SharedUI";
+import { CTAButton, TextRoll, CustomCursor } from "./components/SharedUI";
 import { SplashScreen } from "./components/SplashScreen";
 
 const font = "'Instrument Sans', sans-serif";
@@ -41,9 +41,22 @@ function Navbar(): React.JSX.Element {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ position: "sticky", top: 0, zIndex: 50, backdropFilter: "blur(60px)", WebkitBackdropFilter: "blur(60px)", backgroundColor: "rgba(243,243,243,0.75)", borderBottom: "0.5px solid #E8E8E8" }}
+      style={{ 
+        position: "sticky", 
+        top: 20, 
+        zIndex: 50, 
+        maxWidth: 1120,
+        margin: "20px auto",
+        width: "calc(100% - 80px)",
+        backdropFilter: "blur(60px)", 
+        WebkitBackdropFilter: "blur(60px)", 
+        backgroundColor: "rgba(243, 243, 243, 0.75)", 
+        border: "0.5px solid #E8E8E8",
+        borderRadius: 100,
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)"
+      }}
     >
-      <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", padding: "8px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <motion.img 
@@ -51,11 +64,11 @@ function Navbar(): React.JSX.Element {
               src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
               alt="20/20 Digital Logo"
               referrerPolicy="no-referrer"
-              style={{ height: 34, width: "auto", cursor: "pointer", display: "block" }}
+              style={{ height: 32, width: "auto", cursor: "pointer", display: "block" }}
             />
           </Link>
         </div>
-        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: 600, fontSize: 14, color: "#1e1e1e" }}>
+        <div style={{ flex: 1.2, display: "flex", alignItems: "center", justifyContent: "space-between", fontWeight: 600, fontSize: 13, color: "#1e1e1e" }}>
           {["About", "Services", "Works", "Blog"].map((item) => {
             const path = `/${item.toLowerCase()}`;
             const isActive = location.pathname === path;
@@ -69,10 +82,12 @@ function Navbar(): React.JSX.Element {
               </Link>
             );
           })}
-          <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ color: "inherit", textDecoration: "none" }}>
+          <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none", color: "inherit" }}>
             <TextRoll text="Contact" />
           </Link>
         </div>
+
+        {/* CTA Container */}
         <div style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
           <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none" }}>
             <CTAButton label="Get in touch" />
@@ -109,6 +124,7 @@ export default function App(): React.JSX.Element {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
+            <CustomCursor />
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />

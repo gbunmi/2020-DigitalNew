@@ -159,7 +159,10 @@ const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => (
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
       whileHover={{ y: -8 }}
+      onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+      onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
       className="work-card"
+      style={{ cursor: "none" }}
     >
       <div className="work-card__media">
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>

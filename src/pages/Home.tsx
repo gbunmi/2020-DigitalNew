@@ -32,10 +32,10 @@ interface Testimonial {
 }
 
 const services: ServiceCard[] = [
-  { title: ["Research ", "& Understanding"], desc: "Uncovering real user needs, motivations, and frustrations through journey mapping and evidence-based analysis.", bg: "#1e1e1e", text: "white", descC: "rgba(255,255,255,0.7)" },
-  { title: ["Strategy ", "& Planning"], desc: "Aligning product roadmaps with business objectives to create a realistic, research-backed path for growth.", bg: "#d3d3d3", text: "#1e1e1e", descC: "rgba(30,30,28,0.7)" },
-  { title: ["Design ", "& Testing"], desc: "Building and refining scalable interfaces based on rapid prototyping and direct feedback from your actual users.", bg: "#4d7459", text: "white", descC: "rgba(255,255,255,0.7)" },
-  { title: ["UX Leadership ", "& Advisory"], desc: "Upskilling internal teams and providing senior oversight to bridge the gap between design and delivery.", bg: "#2c444b", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { title: ["Research", "& Understanding"], desc: "Uncovering real user needs, motivations, and frustrations through journey mapping and evidence-based analysis.", bg: "#1e1e1e", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { title: ["Strategy", "& Planning"], desc: "Aligning product roadmaps with business objectives to create a realistic, research-backed path for growth.", bg: "#d3d3d3", text: "#1e1e1e", descC: "rgba(30,30,28,0.7)" },
+  { title: ["Design", "& Testing"], desc: "Building and refining scalable interfaces based on rapid prototyping and direct feedback from your actual users.", bg: "#4d7459", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { title: ["UX Leadership", "& Advisory"], desc: "Upskilling internal teams and providing senior oversight to bridge the gap between design and delivery.", bg: "#2c444b", text: "white", descC: "rgba(255,255,255,0.7)" },
 ];
 
 const works: WorkItem[] = [
@@ -91,17 +91,16 @@ function ServiceCardComponent({ service, height }: { service: ServiceCard; heigh
         justifyContent: "space-between",
         overflow: "hidden",
         boxSizing: "border-box",
-        cursor: "pointer",
       }}
     >
       <div>
         {service.title.map((line, i) => (
-          <div key={i} style={{ fontFamily: font, fontWeight: 600, fontSize: 36, lineHeight: "44px", letterSpacing: -0.72, color: service.text }}>
+          <div key={i} style={{ fontFamily: font, fontWeight: 700, fontSize: 36, lineHeight: "44px", letterSpacing: -0.72, color: service.text }}>
             {line}
           </div>
         ))}
       </div>
-      <p style={{ fontFamily: font, fontWeight: 400, fontSize: 16, color: service.descC, margin: 0, maxWidth: 479 }}>
+      <p style={{ fontFamily: font, fontWeight: 500, fontSize: 16, color: service.descC, margin: 0, maxWidth: 479 }}>
         {service.desc}
       </p>
     </motion.div>
@@ -164,7 +163,9 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}
-      style={{ backgroundColor: "white", borderRadius: "24px", padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid #f0f0f0" }}
+      onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+      onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
+      style={{ backgroundColor: "white", borderRadius: "24px", padding: 24, height: 532, display: "flex", gap: 48, overflow: "hidden", boxSizing: "border-box", border: "1px solid #f0f0f0", cursor: "none" }}
       whileHover={{ transform: "translateY(-4px)", boxShadow: "0 20px 40px rgba(0,0,0,0.05)" }}
     >
       {work.imgFirst ? <>{imageBlock}{textBlock}</> : <>{textBlock}{imageBlock}</>}
@@ -227,7 +228,7 @@ export default function Home(): React.JSX.Element {
     <div style={{ fontFamily: font, overflowX: "hidden" }}>
       {/* Hero */}
       <section style={{ backgroundColor: "#f3f3f3", padding: "100px 0 120px", display: "flex", flexDirection: "column", gap: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", padding: "0 40px", gap: 10, alignItems: "flex-end", justifyContent: "flex-start", maxWidth: 1440, margin: "0 auto", width: "100%" }}>
+        <div style={{ display: "flex", padding: "0 40px", gap: 10, alignItems: "flex-end", justifyContent: "flex-start", margin: "0 auto", width: "100%" }}>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -312,7 +313,7 @@ export default function Home(): React.JSX.Element {
         viewport={{ once: true }}
         style={{ padding: "80px 0" }}
       >
-        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             {["Research", "Strategy", "Design"].map((p, i) => (
               <motion.div 
@@ -341,7 +342,7 @@ export default function Home(): React.JSX.Element {
 
       {/* Services Context */}
       <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
           <motion.h2 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -365,7 +366,7 @@ export default function Home(): React.JSX.Element {
 
       {/* About Section */}
       <section style={{ backgroundColor: "#d73a3b", padding: "120px 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
               <motion.h2 
@@ -426,7 +427,7 @@ export default function Home(): React.JSX.Element {
 
       {/* Works Section */}
       <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0 0" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
+        <div style={{ margin: "0 auto", width: "100%", padding: "0 40px", display: "flex", flexDirection: "column", gap: 80 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 80 }}>
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
@@ -456,7 +457,7 @@ export default function Home(): React.JSX.Element {
 
       {/* Testimonials */}
       <section style={{ backgroundColor: "#f3f3f3", padding: "120px 0", display: "flex", flexDirection: "column", gap: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", justifyContent: "center", padding: "0 40px", maxWidth: 1440, margin: "0 auto", width: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "center", padding: "0 40px", margin: "0 auto", width: "100%" }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
