@@ -62,18 +62,10 @@
   max-width: 100%;
 }
 
-.about-page button {
-  font-family: inherit;
-  border: 0;
-  cursor: pointer;
-  background: none;
-}
-
+.about-page button,
 .about-page input,
 .about-page textarea {
   font-family: inherit;
-  border: 0;
-  background: none;
   outline: none;
 }
 
