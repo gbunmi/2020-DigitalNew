@@ -6,7 +6,7 @@
 
 :root {
   --gutter: 40px;
-  --max-w: 1440px;
+  --max-w: none;
 }
 
 @media (max-width: 768px) {

@@ -43,7 +43,7 @@ const works: WorkItem[] = [
     year: "2024", 
     title: "Datolite Intelligence", 
     desc: "A complete overhaul of an enterprise legal tech platform. We analyzed complex billing workflows to design a streamlined interface that reduced data entry errors by 40%.", 
-    tags: ["LEGAL TECH", "PRODUCT DESIGN", "UX ARCHITECTURE"], 
+    tags: ["Legal tech", "Product design", "UX architecture"], 
     imgFirst: true, 
     img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%201.jpg" 
   },
@@ -51,7 +51,7 @@ const works: WorkItem[] = [
     year: "2023", 
     title: "HealthPath Connect", 
     desc: "A telehealth coordination tool designed for specialized care providers. We mapped the patient journey to identify friction points, resulting in a 25% increase in retention.", 
-    tags: ["HEALTHCARE", "USER RESEARCH", "MOBILE APP"], 
+    tags: ["Healthcare", "User research", "Mobile app"], 
     imgFirst: false, 
     img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%202.jpg" 
   },
@@ -59,7 +59,7 @@ const works: WorkItem[] = [
     year: "2023", 
     title: "Burlington Portal", 
     desc: "Redesigning a citizen engagement platform for a municipal government, focusing on accessibility and intuitive information architecture for essential resident services.", 
-    tags: ["GOVERNMENT", "SERVICE DESIGN", "ACCESSIBILITY"], 
+    tags: ["Government", "Service design", "Accessibility"], 
     imgFirst: true, 
     img: "https://raw.githubusercontent.com/gbunmi/images/main/Work%203.jpg" 
   },
@@ -225,7 +225,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
         WebkitMaskImage: "-webkit-radial-gradient(white, black)"
       }}
     >
-      <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 240 : "100%", backgroundColor: "#c4c4c4", flexShrink: 0, overflow: "hidden", borderRadius: isMobile ? "24px 24px 0 0" : "24px" }}>
+      <div style={{ width: isMobile ? "100%" : 300, height: isMobile ? 240 : "100%", backgroundColor: "#c4c4c4", flexShrink: 0, overflow: "hidden", borderRadius: 0 }}>
         {testimonial.img && (
           <img 
             src={testimonial.img} 
@@ -239,9 +239,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }): React.J
         <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 32 : 64 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             <svg width="32" height="26" viewBox="0 0 32 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 26V15.6C0 10.92 1.08 7.28 3.24 4.68C5.48 2.08 8.6 0.4 12.6 0L13.8 4.2C11.4 4.68 9.52 5.72 8.16 7.32C6.88 8.92 6.2 10.84 6.12 13.08H12.6V26H0ZM18.6 26V15.6C18.6 10.92 19.68 7.28 21.84 4.68C24.08 2.08 27.2 0.4 31.2 0L32.4 4.2C30 4.68 28.12 5.72 26.76 7.32C25.48 8.92 24.8 10.84 24.72 13.08H31.2V26H18.6Z" fill="#1e1e1e"/>
+              <path d="M0 26V15.6C0 10.92 1.08 7.28 3.24 4.68C5.48 2.08 8.6 0.4 12.6 0L13.8 4.2C11.4 4.68 9.52 5.72 8.16 7.32C6.88 8.92 6.2 10.84 6.12 13.08H12.6V26H0ZM18.6 26V15.6C18.6 10.92 19.68 7.28 21.84 4.68C24.08 2.08 27.2 0.4 31.2 0L32.4 4.2C30 4.68 28.12 5.72 26.76 7.32C25.48 8.92 24.8 10.84 24.72 13.08H31.2V26H18.6Z" fill="#d73a3b"/>
             </svg>
-            <p style={{ fontFamily: font, fontWeight: 600, fontSize: isMobile ? 16 : 18, lineHeight: isMobile ? "24px" : "26px", letterSpacing: -0.09, color: "#1e1e1e", margin: 0 }}>{testimonial.quote}</p>
+            <p style={{ fontFamily: font, fontWeight: 400, fontSize: isMobile ? 16 : 18, lineHeight: isMobile ? "24px" : "26px", letterSpacing: -0.09, color: "#1e1e1e", margin: 0 }}>{testimonial.quote}</p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <span style={{ fontFamily: font, fontWeight: 600, fontSize: isMobile ? 20 : 24, lineHeight: isMobile ? "28px" : "32px", letterSpacing: -0.48, color: "#1e1e1e" }}>{testimonial.name}</span>
@@ -284,6 +284,8 @@ export default function Home(): React.JSX.Element {
               display: "flex", 
               gap: isMobile ? 12 : 24, 
               paddingLeft: isMobile ? 16 : 24, 
+              paddingTop: 24,
+              paddingBottom: 12,
               width: "max-content",
               animationDuration: isMobile ? "20s" : "30s",
               animationPlayState: isHeroPaused ? "paused" : "running"
@@ -425,7 +427,7 @@ export default function Home(): React.JSX.Element {
               <motion.button 
                 whileHover={{ scale: 1.05, backgroundColor: "white", color: "#d73a3b" }}
                 whileTap={{ scale: 0.95 }}
-                style={{ backgroundColor: "transparent", color: "white", border: "2px solid white", borderRadius: 12, padding: "12px 16px", fontWeight: 600, fontSize: 14, cursor: "pointer", alignSelf: "flex-start", fontFamily: font, transition: "background-color 0.2s, color 0.2s" }}
+                style={{ backgroundColor: "transparent", color: "white", border: "2px solid white", borderRadius: 999, padding: "12px 16px", fontWeight: 600, fontSize: 14, cursor: "pointer", alignSelf: "flex-start", fontFamily: font, transition: "background-color 0.2s, color 0.2s" }}
               >
                 Learn more
               </motion.button>
@@ -479,7 +481,7 @@ export default function Home(): React.JSX.Element {
                 <motion.button 
                   whileHover={{ scale: 1.02, backgroundColor: "#1e1e1e", color: "white" }}
                   whileTap={{ scale: 0.98 }}
-                  style={{ backgroundColor: "transparent", color: "#1e1e1e", border: "2px solid rgba(0,0,0,0.6)", borderRadius: 12, padding: 16, fontWeight: 600, fontSize: 16, letterSpacing: -0.32, cursor: "pointer", fontFamily: font, transition: "all 0.2s" }}
+                  style={{ backgroundColor: "transparent", color: "#1e1e1e", border: "2px solid rgba(0,0,0,0.6)", borderRadius: 999, height: 45, display: "flex", alignItems: "center", justifyContent: "center", padding: "12px 16px", fontWeight: 600, fontSize: 16, letterSpacing: -0.32, cursor: "pointer", fontFamily: font, transition: "all 0.2s" }}
                 >
                   See all works
                 </motion.button>

@@ -52,7 +52,7 @@ const WORKS: Work[] = [
     year: '2024',
     title: 'Datolite Intelligence',
     description: 'A complete overhaul of an enterprise legal tech platform. We analyzed the complex billing workflows of large law firms to design a streamlined interface that reduced data entry errors by 40% and improved reporting speed.',
-    tags: ['LEGAL TECH', 'PRODUCT DESIGN', 'UX ARCHITECTURE'],
+    tags: ['Legal tech', 'Product design', 'UX architecture'],
     testimonial: {
       quote: "Jamie's ability to dive into the deep complexities of our industry was impressive. He didn't just design a pretty interface; he rebuilt our workflow logic from the ground up.",
       name: 'Sarah Chen',
@@ -64,7 +64,7 @@ const WORKS: Work[] = [
     year: '2023',
     title: 'Burlington Portal',
     description: 'Redesigning the citizen engagement platform for a municipal government. We focused on accessibility and intuitive information architecture to make essential services easy to find for all residents.',
-    tags: ['GOVERNMENT', 'SERVICE DESIGN', 'ACCESSIBILITY'],
+    tags: ['Government', 'Service design', 'Accessibility'],
     testimonial: {
       quote: "The resident feedback since launch has been incredible. 20/20 Digital helped us turn a confusing legacy system into a modern, user-friendly service point.",
       name: 'Michael Ross',
@@ -76,7 +76,7 @@ const WORKS: Work[] = [
     year: '2023',
     title: 'HealthPath Connect',
     description: 'A telehealth coordination tool designed for specialized care providers. We mapped the patient journey to identify friction points in booking and follow-ups, resulting in a 25% increase in patient retention.',
-    tags: ['HEALTHCARE', 'USER RESEARCH', 'MOBILE APP'],
+    tags: ['Healthcare', 'User research', 'Mobile app'],
     testimonial: {
       quote: "Jamie worked directly with our clinical staff to understand the high-pressure environment they work in. The resulting designs are both functional and empathetic.",
       name: 'Dr. Elena Vance',
@@ -88,7 +88,7 @@ const WORKS: Work[] = [
     year: '2022',
     title: 'AdventureTravel Labs',
     description: 'Developing a bold digital strategy for a global tourism brand. We implemented a new booking flow that optimized for mobile-first users and introduced personalized travel recommendations.',
-    tags: ['TRAVEL', 'STRATEGY', 'CONVERSION OPTIMIZATION'],
+    tags: ['Travel', 'Strategy', 'Conversion optimization'],
     testimonial: {
       quote: "An absolute extension of our team. 20/20 Digital led our technology partners through the transition with clarity and a relentless focus on the end customer.",
       name: 'Paul Paruch',
@@ -117,7 +117,7 @@ const QuoteMark: FC = () => (
   <svg width="16" height="13" viewBox="0 0 16 13" aria-hidden="true">
     <path
       d="M0 13V8.4Q0 5.6 1.4 3.4 2.8 1.2 5.4 0v3.5Q4 4.2 3.3 5.5q-.7 1.3-.6 2.5h2.7V13H0Zm9 0V8.4q0-2.8 1.4-5T15.8 0v3.5q-1.4.7-2.1 2-.7 1.3-.6 2.5h2.7V13H9Z"
-      fill="#1e1e1e"
+      fill="#d73a3b"
     />
   </svg>
 );
@@ -229,8 +229,8 @@ const WorksPage: FC = () => (
           ))}
         </div>
       </section>
-      <ContactSection />
     </main>
+    <ContactSection />
     <Footer />
   </div>
 );

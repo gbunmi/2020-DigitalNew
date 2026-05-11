@@ -69,7 +69,7 @@ export function CTAButton({ label, onClick, fullWidth, large }: { label: string;
         backgroundColor: "#d73a3b",
         color: "white",
         border: "none",
-        borderRadius: 8,
+        borderRadius: 999,
         padding: large ? "16px" : "12px 16px",
         fontFamily: font,
         fontWeight: 600,
@@ -96,12 +96,12 @@ export function Tag({ label }: { label: string; key?: React.Key }): React.JSX.El
       viewport={{ once: true }}
       style={{
         border: "1px solid #e2e2e2",
-        borderRadius: 8,
-        padding: "6px 8px",
+        borderRadius: 999,
+        padding: "6px 12px",
         fontFamily: font,
         fontWeight: 600,
-        fontSize: 12,
-        color: "#1e1e1e",
+        fontSize: 10,
+        color: "#5d5d5d",
         whiteSpace: "nowrap",
         display: "inline-block",
         cursor: "default",
@@ -164,51 +164,7 @@ export function TextRoll({ text, color = "inherit", hoverColor, fontSize = 14, f
   );
 }
 
-export function ContactSection(): React.JSX.Element {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const isMobile = useMediaQuery("(max-width: 768px)");
-
-  return (
-    <section id="contact" style={{ backgroundColor: "#f3f3f3", width: "100%", position: "relative", zIndex: 10, overflow: "hidden" }}>
-      <div style={{ padding: isMobile ? "80px var(--gutter)" : "120px 40px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: isMobile ? 48 : 40, width: "100%", margin: "0 auto", boxSizing: "border-box" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32, maxWidth: 602 }}>
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontWeight: 700, fontSize: isMobile ? 48 : 100, lineHeight: isMobile ? "48px" : "88px", letterSpacing: isMobile ? -1.5 : -3, color: "#1e1e1e", margin: 0, fontFamily: font }}
-          >
-            Let's have a conversation
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontWeight: 400, fontSize: 16, color: "#5d5d5d", margin: 0, maxWidth: 470, fontFamily: font }}
-          >
-            Whether you have a project ready or just want to talk something through, get in touch. You'll hear back within one business day.
-          </motion.p>
-        </div>
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ backgroundColor: "white", borderRadius: 12, padding: isMobile ? "24px 16px" : "32px 16px", width: isMobile ? "100%" : 603, display: "flex", flexDirection: "column", gap: isMobile ? 24 : 32, boxSizing: "border-box", flexShrink: 0, boxShadow: "0 10px 30px rgba(0,0,0,0.05)" }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <input type="text" placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={{ height: 48, border: "0.5px solid #cecece", borderRadius: 8, padding: "0 16px", fontSize: 14, outline: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
-            <input type="email" placeholder="Your email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={{ height: 48, border: "0.5px solid #cecece", borderRadius: 8, padding: "0 16px", fontSize: 14, outline: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
-            <textarea placeholder="Leave a message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ height: isMobile ? 140 : 196, border: "0.5px solid #cecece", borderRadius: 8, padding: 16, fontSize: 14, outline: "none", resize: "none", boxSizing: "border-box", width: "100%", fontFamily: font }} />
-          </div>
-          <CTAButton label="Send" fullWidth large onClick={() => console.log("Form submitted", form)} />
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+export { default as ContactSection } from './ContactSection';
 
 export function CustomCursor(): React.JSX.Element {
   const mouseX = useMotionValue(-100);
@@ -277,10 +233,10 @@ export function Footer(): React.JSX.Element {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
-    <footer id="footer" style={{ width: "100%", padding: isMobile ? "0 16px 16px 16px" : "0 24px 24px 24px", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
+    <footer id="footer" style={{ width: "100%", padding: isMobile ? "0 var(--gutter) var(--gutter) var(--gutter)" : "0 var(--gutter) var(--gutter) var(--gutter)", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
       <div style={{ 
         backgroundColor: "#d73a3b", 
-        borderRadius: isMobile ? 32 : 48, 
+        borderRadius: 24, 
         padding: isMobile ? "48px 24px" : "64px 40px", 
         display: "flex", 
         flexDirection: "column", 
@@ -311,7 +267,7 @@ export function Footer(): React.JSX.Element {
                   src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
                   alt="20/20 Digital Logo"
                   referrerPolicy="no-referrer"
-                  style={{ height: 40, width: "auto", cursor: "pointer", display: "block" }}
+                  style={{ height: 80, width: "auto", cursor: "pointer", display: "block" }}
                 />
               </div>
             )}
@@ -343,7 +299,7 @@ export function Footer(): React.JSX.Element {
               src="https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg"
               alt="20/20 Digital Logo"
               referrerPolicy="no-referrer"
-              style={{ height: 32, width: "auto", display: "block", marginBottom: 8 }}
+              style={{ height: 64, width: "auto", display: "block", marginBottom: 16 }}
             />
           )}
           <span style={{ flex: 1, fontWeight: 500, color: "rgba(255,255,255,0.8)", fontFamily: font, textAlign: "left" }}>© 2026 20/20 Digital</span>

@@ -1,0 +1,286 @@
+/* ===========================================================
+   Design tokens — pulled directly from the Figma file
+   =========================================================== */
+:root {
+  --cs-bg: #f3f3f3;          /* UI Light */
+  --cs-panel: #ffffff;        /* White */
+  --cs-border: #e1e5e5;
+  --cs-text-placeholder: #969696; /* Text/Grey 2 */
+  --cs-accent: #d73a3b;       /* Send button red */
+  --cs-accent-hover: #c43233;
+  --cs-radius-lg: 24px;
+  --cs-radius-md: 12px;
+  --cs-radius-sm: 8px;
+}
+
+/* Instrument Sans — load from Google Fonts.
+   If you self-host, drop the @font-face declarations here instead. */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* ===========================================================
+   Layout container
+   =========================================================== */
+.contact-section {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  padding: 113px 40px 40px;
+  background: var(--cs-bg);
+  font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.contact-section *,
+.contact-section *::before,
+.contact-section *::after {
+  box-sizing: border-box;
+}
+
+/* ===========================================================
+   Hero panel (left)
+   =========================================================== */
+.contact-section__hero {
+  flex: 1 0 0;
+  align-self: stretch;
+  position: relative;
+  min-width: 0;
+  min-height: 582px;
+  background: var(--cs-panel);
+  border-radius: var(--cs-radius-lg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.contact-section__hero-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: blur(10px);
+  transform: scale(1.1);
+}
+
+.contact-section__hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+  z-index: 1;
+}
+
+/* Subtle top-of-hero overlay matching the design's frosted-glass band */
+.contact-section__hero-blur {
+  display: none;
+}
+
+.contact-section__hero-content {
+  position: absolute;
+  left: 49px;
+  top: 75.5px;
+  right: 49px;
+  bottom: 75.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.contact-section__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 72px;
+  letter-spacing: -2.4px;
+  max-width: 505px;
+  color: #ffffff;
+  font-variation-settings: 'wdth' 100;
+}
+
+.contact-section__subtitle {
+  margin: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.09px;
+  max-width: 531px;
+  color: rgba(255, 255, 255, 0.8);
+  font-variation-settings: 'wdth' 100;
+}
+
+/* ===========================================================
+   Form panel (right)
+   =========================================================== */
+.contact-section__form-wrapper {
+  flex: 1 0 0;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  background: var(--cs-panel);
+  border-radius: var(--cs-radius-lg);
+  overflow: hidden;
+}
+
+.contact-section__form {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px 16px;
+  background: var(--cs-panel);
+  border-radius: var(--cs-radius-md);
+  min-height: 582px;
+}
+
+.contact-section__fields {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  min-height: 0;
+}
+
+.contact-section__field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-section__field-group--textarea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-section__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.1px;
+  font-variation-settings: 'wdth' 100;
+}
+
+.contact-section__input,
+.contact-section__textarea {
+  width: 100%;
+  border: 0.5px solid var(--cs-border);
+  border-radius: var(--cs-radius-sm);
+  padding: 15.5px 15.5px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+  background: #f9f9f9;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  font-variation-settings: 'wdth' 100;
+}
+
+.contact-section__input {
+  height: 48px;
+}
+
+.contact-section__textarea {
+  flex: 1 0 0;
+  min-height: 120px;
+  resize: none;
+  font-family: inherit;
+}
+
+.contact-section__input::placeholder,
+.contact-section__textarea::placeholder {
+  color: var(--cs-text-placeholder);
+  font-weight: 400;
+}
+
+.contact-section__input:focus,
+.contact-section__textarea:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.06);
+}
+
+/* ===========================================================
+   Submit button
+   =========================================================== */
+.contact-section__submit {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  background: var(--cs-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 100ms ease;
+  font-variation-settings: 'wdth' 100;
+}
+
+.contact-section__submit:hover {
+  background: var(--cs-accent-hover);
+}
+
+.contact-section__submit:active {
+  transform: scale(0.99);
+}
+
+.contact-section__submit:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 2px;
+}
+
+/* ===========================================================
+   Responsive — stack panels on narrow viewports
+   =========================================================== */
+@media (max-width: 900px) {
+  .contact-section {
+    flex-direction: column;
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  .contact-section__hero,
+  .contact-section__form-wrapper {
+    width: 100%;
+    align-self: auto;
+  }
+
+  .contact-section__hero {
+    min-height: 480px;
+  }
+
+  .contact-section__title {
+    font-size: 56px;
+    line-height: 52px;
+    letter-spacing: -1.6px;
+  }
+
+  .contact-section__hero-content {
+    left: 32px;
+    right: 32px;
+    top: 48px;
+    bottom: 48px;
+  }
+}
+
+@media (max-width: 500px) {
+  .contact-section__title {
+    font-size: 44px;
+    line-height: 42px;
+    letter-spacing: -1.2px;
+  }
+
+  .contact-section__subtitle {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}

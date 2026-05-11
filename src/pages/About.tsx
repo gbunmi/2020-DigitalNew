@@ -2,6 +2,7 @@ import { type FC, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import './About.css';
 import { ContactSection, Footer } from '../components/SharedUI';
+import Partners from '../components/Partners';
 
 // ---- Asset slots: replace with your imports / URLs ---------------------------
 const LOGO_LIGHT_URL = 'https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg'; // big wordmark above the bio
@@ -306,9 +307,10 @@ const About: FC = () => (
       <Services />
       <Founder />
       <Bio />
+      <Partners />
+      <ContactSection />
+      <Footer />
     </main>
-    <ContactSection />
-    <Footer />
   </div>
 );
 

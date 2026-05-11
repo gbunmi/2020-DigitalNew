@@ -116,36 +116,6 @@ const ImgSlot: FC<ImgSlotProps> = ({ src, alt, label, className }) =>
   );
 
 // ---- Sections ---------------------------------------------------------------
-const Nav: FC = () => {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return (
-    <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
-      <div className="nav__inner">
-        <a className="nav__logo" href="#top" aria-label="20/20 Digital home">
-          <ImgSlot src={LOGO_DARK_URL} label="20/20" className="nav__logo-mark" />
-        </a>
-        <nav className="nav__links" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#works">Works</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <div className="nav__cta-wrap">
-          <button className="btn-primary btn-primary--sm" type="button">
-            Get in touch
-          </button>
-        </div>
-      </div>
-    </header>
-  );
-};
-
 const Hero: FC = () => (
   <section className="hero" id="top">
     <motion.h1 
@@ -228,15 +198,14 @@ const Articles: FC = () => (
 
 // ---- Page -------------------------------------------------------------------
 const Blog: FC = () => (
-  <>
-    {/* <Nav /> component omitted to use global App navbar */}
+  <div className="blog-page">
     <main>
       <Hero />
       <Articles />
-      <ContactSection />
     </main>
+    <ContactSection />
     <Footer />
-  </>
+  </div>
 );
 
 export default Blog;
