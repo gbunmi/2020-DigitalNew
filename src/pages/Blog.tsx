@@ -180,7 +180,6 @@ const ArticleCard: FC<{ article: Article }> = ({ article }) => (
       hidden: { opacity: 0, y: 20 },
       visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
     }}
-    whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
     onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
     onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
     style={{ cursor: "none" }}
@@ -188,7 +187,7 @@ const ArticleCard: FC<{ article: Article }> = ({ article }) => (
     href={article.href ?? '#'}
   >
     <div className="article-card__cover">
-      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }} style={{ height: "100%" }}>
+      <motion.div whileHover={{ scale: 1.05, filter: "blur(8px)" }} transition={{ duration: 0.6 }} style={{ height: "100%" }}>
         <ImgSlot
           src={article.cover}
           label="article cover"

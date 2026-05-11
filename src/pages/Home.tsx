@@ -130,7 +130,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
           src={work.img} 
           alt={work.title} 
           referrerPolicy="no-referrer"
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05, filter: "blur(8px)" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "24px" }}
         />

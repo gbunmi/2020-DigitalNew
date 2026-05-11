@@ -165,7 +165,7 @@ const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => (
       style={{ cursor: "none" }}
     >
       <div className="work-card__media">
-        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>
+        <motion.div whileHover={{ scale: 1.05, filter: "blur(8px)" }} transition={{ duration: 0.6 }}>
           <ImgSlot
             src={WORK_IMAGES[work.id]}
             label={`${work.title} cover`}
