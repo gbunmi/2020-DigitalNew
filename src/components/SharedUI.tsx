@@ -166,7 +166,8 @@ export function TextRoll({ text, color = "inherit", hoverColor, fontSize = 14, f
 
 export { default as ContactSection } from './ContactSection';
 
-export function CustomCursor(): React.JSX.Element {
+export function CustomCursor(): React.JSX.Element | null {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
@@ -177,6 +178,8 @@ export function CustomCursor(): React.JSX.Element {
   const [cursorState, setCursorState] = useState<{ active: boolean; text?: string }>({ active: false });
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -195,7 +198,9 @@ export function CustomCursor(): React.JSX.Element {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("cursorChange", handleCursorChange);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <motion.div

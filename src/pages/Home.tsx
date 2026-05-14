@@ -199,7 +199,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
         overflow: "hidden", 
         boxSizing: "border-box", 
         border: "1px solid #f0f0f0", 
-        cursor: "none" 
+        cursor: isMobile ? "pointer" : "none" 
       }}
       whileHover={{ transform: "translateY(-4px)", boxShadow: "0 20px 40px rgba(0,0,0,0.05)" }}
     >

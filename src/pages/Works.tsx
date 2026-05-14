@@ -122,6 +122,18 @@ const QuoteMark: FC = () => (
   </svg>
 );
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+  return matches;
+}
+
 // ---- Sections ---------------------------------------------------------------
 const Hero: FC = () => (
   <section className="hero" id="top">
@@ -151,19 +163,22 @@ const Hero: FC = () => (
   </section>
 );
 
-const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => (
-  <div className="work-entry">
-    <motion.article 
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      whileHover={{ y: -8 }}
-      onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
-      onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
-      className="work-card"
-      style={{ cursor: "none" }}
-    >
+const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  return (
+    <div className="work-entry">
+      <motion.article 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        whileHover={{ y: -8 }}
+        onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+        onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
+        className="work-card"
+        style={{ cursor: isMobile ? "pointer" : "none" }}
+      >
       <div className="work-card__media">
         <motion.div 
           whileHover={{ scale: 1.05, filter: "blur(8px)" }} 
@@ -219,7 +234,8 @@ const WorkEntry: FC<{ work: Work; isLast?: boolean }> = ({ work, isLast }) => (
 
     {!isLast && <div className="work-entry__divider" />}
   </div>
-);
+  );
+};
 
 // ---- Page -------------------------------------------------------------------
 const WorksPage: FC = () => (

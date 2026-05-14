@@ -115,6 +115,18 @@ const ImgSlot: FC<ImgSlotProps> = ({ src, alt, label, className }) =>
     </div>
   );
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+  return matches;
+}
+
 // ---- Sections ---------------------------------------------------------------
 const Hero: FC = () => (
   <section className="hero" id="top">
@@ -144,18 +156,21 @@ const Hero: FC = () => (
   </section>
 );
 
-const ArticleCard: FC<{ article: Article }> = ({ article }) => (
-  <motion.a 
-    variants={{
-      hidden: { opacity: 0, y: 20 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
-    }}
-    onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
-    onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
-    style={{ cursor: "none" }}
-    className="article-card" 
-    href={article.href ?? '#'}
-  >
+const ArticleCard: FC<{ article: Article }> = ({ article }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  return (
+    <motion.a 
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+      }}
+      onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+      onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
+      style={{ cursor: isMobile ? "pointer" : "none" }}
+      className="article-card" 
+      href={article.href ?? '#'}
+    >
     <div className="article-card__cover">
       <motion.div whileHover={{ scale: 1.05, filter: "blur(8px)" }} transition={{ duration: 0.6 }} style={{ height: "100%" }}>
         <ImgSlot
@@ -172,7 +187,8 @@ const ArticleCard: FC<{ article: Article }> = ({ article }) => (
       <p className="article-card__date">{article.date}</p>
     </div>
   </motion.a>
-);
+  );
+};
 
 const Articles: FC = () => (
   <section className="articles" id="articles">

@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import './About.css';
 import { ContactSection, Footer } from '../components/SharedUI';
@@ -104,6 +104,18 @@ const Pill: FC<{ children: ReactNode; color?: string }> = ({ children, color }) 
 );
 
 // ---- Sections ---------------------------------------------------------------
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+  return matches;
+}
+
 const Hero: FC = () => (
   <section className="hero" id="top">
     <motion.h1 
@@ -134,8 +146,11 @@ const Hero: FC = () => (
   </section>
 );
 
-const Focus: FC = () => (
-  <section className="focus" id="services">
+const Focus: FC = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  return (
+    <section className="focus" id="services">
     <div className="container">
       <motion.h2 
         initial={{ opacity: 0, y: 20 }}
@@ -155,7 +170,7 @@ const Focus: FC = () => (
             whileHover={{ y: -8, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
             onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
             onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
-            style={{ cursor: "none" }}
+            style={{ cursor: isMobile ? "pointer" : "none" }}
             key={f.n} 
             className="focus-card"
           >
@@ -174,7 +189,8 @@ const Focus: FC = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 const Stats: FC = () => (
   <section className="stats">
