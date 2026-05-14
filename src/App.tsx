@@ -46,7 +46,6 @@ function Navbar(): React.JSX.Element {
       className="sticky z-50 mx-auto"
       style={{ 
         top: 20, 
-        maxWidth: 1120,
         width: "calc(100% - var(--gutter) * 2)",
         backdropFilter: "blur(60px)", 
         WebkitBackdropFilter: "blur(60px)", 
@@ -71,7 +70,7 @@ function Navbar(): React.JSX.Element {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex flex-[1.2] items-center justify-between font-semibold text-[13px] text-[#1e1e1e]">
+        <div className="hidden md:flex flex-[1.2] items-center justify-center gap-16 font-semibold text-[13px] text-[#1e1e1e]">
           {["About", "Services", "Works", "Blog"].map((item) => {
             const path = `/${item.toLowerCase()}`;
             const isActive = location.pathname === path;
@@ -85,9 +84,6 @@ function Navbar(): React.JSX.Element {
               </Link>
             );
           })}
-          <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none", color: "inherit" }}>
-            <TextRoll text="Contact" />
-          </Link>
         </div>
 
         {/* Desktop CTA */}
@@ -139,20 +135,6 @@ function Navbar(): React.JSX.Element {
                   </Link>
                 );
               })}
-              <Link 
-                to={{ pathname: location.pathname, hash: "#contact" }} 
-                onClick={() => setIsMobileMenuOpen(false)}
-                style={{ 
-                  color: "#1e1e1e", 
-                  textDecoration: "none",
-                  fontSize: 18,
-                  fontWeight: 600,
-                  fontFamily: font,
-                  padding: "8px 0"
-                }}
-              >
-                Contact
-              </Link>
               <div style={{ paddingTop: 8 }}>
                 <Link to={{ pathname: location.pathname, hash: "#contact" }} style={{ textDecoration: "none" }} onClick={() => setIsMobileMenuOpen(false)}>
                   <CTAButton label="Get in touch" fullWidth />

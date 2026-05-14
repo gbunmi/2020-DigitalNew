@@ -8,6 +8,7 @@ import Partners from "../components/Partners";
 const font = "'Instrument Sans', sans-serif";
 
 interface ServiceCard {
+  id: string;
   title: string[];
   desc: string;
   bg: string;
@@ -32,10 +33,10 @@ interface Testimonial {
 }
 
 const services: ServiceCard[] = [
-  { title: ["Research", "& Understanding"], desc: "Uncovering real user needs, motivations, and frustrations through journey mapping and evidence-based analysis.", bg: "#1e1e1e", text: "white", descC: "rgba(255,255,255,0.7)" },
-  { title: ["Strategy", "& Planning"], desc: "Aligning product roadmaps with business objectives to create a realistic, research-backed path for growth.", bg: "#d3d3d3", text: "#1e1e1e", descC: "rgba(30,30,28,0.7)" },
-  { title: ["Design", "& Testing"], desc: "Building and refining scalable interfaces based on rapid prototyping and direct feedback from your actual users.", bg: "#4d7459", text: "white", descC: "rgba(255,255,255,0.7)" },
-  { title: ["UX Leadership", "& Advisory"], desc: "Upskilling internal teams and providing senior oversight to bridge the gap between design and delivery.", bg: "#2c444b", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { id: "research", title: ["Research", "& Understanding"], desc: "Uncovering real user needs, motivations, and frustrations through journey mapping and evidence-based analysis.", bg: "#1e1e1e", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { id: "strategy", title: ["Strategy", "& Planning"], desc: "Aligning product roadmaps with business objectives to create a realistic, research-backed path for growth.", bg: "#d3d3d3", text: "#1e1e1e", descC: "rgba(30,30,28,0.7)" },
+  { id: "design", title: ["Design", "& Testing"], desc: "Building and refining scalable interfaces based on rapid prototyping and direct feedback from your actual users.", bg: "#4d7459", text: "white", descC: "rgba(255,255,255,0.7)" },
+  { id: "leadership", title: ["UX Leadership", "& Advisory"], desc: "Upskilling internal teams and providing senior oversight to bridge the gap between design and delivery.", bg: "#2c444b", text: "white", descC: "rgba(255,255,255,0.7)" },
 ];
 
 const works: WorkItem[] = [
@@ -89,37 +90,41 @@ function ServiceCardComponent({ service, height }: { service: ServiceCard; heigh
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      style={{
-        backgroundColor: service.bg,
-        borderRadius: "24px",
-        padding: isMobile ? "40px 24px" : "64px 40px 40px",
-        height: isMobile ? "auto" : height,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        gap: isMobile ? 32 : 0,
-        overflow: "hidden",
-        boxSizing: "border-box",
-        cursor: "default",
-      }}
-    >
-      <div>
-        {service.title.map((line, i) => (
-          <div key={i} style={{ fontFamily: font, fontWeight: 700, fontSize: isMobile ? 28 : 36, lineHeight: isMobile ? "34px" : "44px", letterSpacing: -0.72, color: service.text }}>
-            {line}
-          </div>
-        ))}
-      </div>
-      <p style={{ fontFamily: font, fontWeight: 500, fontSize: 16, color: service.descC, margin: 0, maxWidth: 479 }}>
-        {service.desc}
-      </p>
-    </motion.div>
+    <Link to={`/services#service-${service.id}`} style={{ textDecoration: "none" }}>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        onMouseEnter={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: true } }))}
+        onMouseLeave={() => window.dispatchEvent(new CustomEvent("cursorChange", { detail: { active: false } }))}
+        style={{
+          backgroundColor: service.bg,
+          borderRadius: "24px",
+          padding: isMobile ? "40px 24px" : "64px 40px 40px",
+          height: isMobile ? "auto" : height,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          gap: isMobile ? 32 : 0,
+          overflow: "hidden",
+          boxSizing: "border-box",
+          cursor: isMobile ? "pointer" : "none",
+        }}
+      >
+        <div>
+          {service.title.map((line, i) => (
+            <div key={i} style={{ fontFamily: font, fontWeight: 700, fontSize: isMobile ? 28 : 36, lineHeight: isMobile ? "34px" : "44px", letterSpacing: -0.72, color: service.text }}>
+              {line}
+            </div>
+          ))}
+        </div>
+        <p style={{ fontFamily: font, fontWeight: 500, fontSize: 16, color: service.descC, margin: 0, maxWidth: 479 }}>
+          {service.desc}
+        </p>
+      </motion.div>
+    </Link>
   );
 }
 

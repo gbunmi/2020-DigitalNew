@@ -274,10 +274,10 @@ export function Footer(): React.JSX.Element {
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 24, alignItems: isMobile ? "flex-start" : "flex-end" }}>
               <span style={{ fontWeight: 500, fontSize: 16, lineHeight: "26px", letterSpacing: -0.08, color: "white", fontFamily: font }}>Navigation</span>
               <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 12 : 16, alignItems: isMobile ? "flex-start" : "flex-end" }}>
-                {["About", "Services", "Experience", "Blog", "Contact"].map((l) => (
+                {["About", "Services", "Experience", "Blog"].map((l) => (
                   <Link 
                     key={l}
-                    to={l === "Contact" ? "#contact" : l === "Experience" ? "/about" : `/${l.toLowerCase()}`} 
+                    to={l === "Experience" ? "/about" : `/${l.toLowerCase()}`} 
                     style={{ color: "white", textDecoration: "none", display: "inline-block" }}
                   >
                     <TextRoll text={l} fontSize={isMobile ? 18 : 24} fontWeight={600} hoverColor="rgba(255,255,255,0.7)" />

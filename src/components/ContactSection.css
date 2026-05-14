@@ -244,7 +244,7 @@
 @media (max-width: 900px) {
   .contact-section {
     flex-direction: column;
-    padding: 0;
+    padding: 64px 0 0 0;
     gap: 0;
     min-height: auto;
   }
@@ -254,10 +254,17 @@
     width: 100%;
     align-self: auto;
     border-radius: 0;
+    flex: none; /* Prevent flex-basis: 0 from collapsing on mobile */
   }
 
   .contact-section__form {
     border-radius: 0;
+    min-height: auto; /* Allow it to hug content on mobile if needed, but we have fields below */
+    padding: 40px 24px;
+  }
+
+  .contact-section__fields {
+    flex: none;
   }
 
   .contact-section__hero {
