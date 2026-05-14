@@ -638,8 +638,14 @@
   .founder__experience {
     width: 100%;
   }
-  .exp-row__role {
-    font-size: 16px;
+  .exp-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 0;
+  }
+  .exp-row__period {
+    align-self: flex-start;
   }
   .bio > .container {
     padding: 60px var(--gutter);
@@ -684,6 +690,12 @@
     aspect-ratio: auto;
     height: 140px;
     border-radius: 24px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .stat:nth-child(1) {
+    padding-left: 1px;
+    padding-right: 0px;
   }
   .stat__value {
     font-size: 40px;

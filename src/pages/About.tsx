@@ -6,7 +6,7 @@ import { ContactSection, Footer } from '../components/SharedUI';
 // ---- Asset slots: replace with your imports / URLs ---------------------------
 const LOGO_LIGHT_URL = 'https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg'; // big wordmark above the bio
 const HERO_IMAGE_URL = 'https://raw.githubusercontent.com/gbunmi/images/main/About%20us%20(2).jpg'; // boardroom / meeting photo
-const FOUNDER_IMAGE_URL = ''; // Jamie Gerrard photo
+const FOUNDER_IMAGE_URL = 'https://raw.githubusercontent.com/gbunmi/images/main/images.jpg'; // Jamie Gerrard photo
 
 // ---- Data -------------------------------------------------------------------
 type FocusArea = { n: string; title: string; copy: string };
