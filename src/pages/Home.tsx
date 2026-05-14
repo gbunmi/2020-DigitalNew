@@ -350,7 +350,7 @@ export default function Home(): React.JSX.Element {
         style={{ padding: isMobile ? "60px 0" : "80px 0" }}
       >
         <div style={{ margin: "0 auto", width: "100%", padding: "0 var(--gutter)", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
-          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between", gap: isMobile ? 32 : 0 }}>
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: isMobile ? "flex-start" : "space-between", gap: isMobile ? 16 : 0, flexWrap: isMobile ? "nowrap" : "wrap" }}>
             {["Research", "Strategy", "Design"].map((p, i) => (
               <motion.div 
                 key={p} 
@@ -358,10 +358,10 @@ export default function Home(): React.JSX.Element {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2 }}
-                style={{ flex: 1, display: "flex", alignItems: "center", gap: 12 }}
+                style={{ flex: isMobile ? "none" : 1, display: "flex", alignItems: "center", gap: isMobile ? 6 : 12 }}
               >
-                <div style={{ width: 8, height: isMobile ? 32 : 40, backgroundColor: "rgba(255,255,255,0.7)" }} />
-                <span style={{ fontWeight: 600, fontSize: isMobile ? 32 : 48, lineHeight: isMobile ? "38px" : "54px", letterSpacing: -1.44, color: "white" }}>{p}</span>
+                <div style={{ width: isMobile ? 4 : 8, height: isMobile ? 20 : 40, backgroundColor: "rgba(255,255,255,0.7)" }} />
+                <span style={{ fontWeight: 600, fontSize: isMobile ? 20 : 48, lineHeight: isMobile ? "24px" : "54px", letterSpacing: isMobile ? -0.4 : -1.44, color: "white", whiteSpace: "nowrap" }}>{p}</span>
               </motion.div>
             ))}
           </div>

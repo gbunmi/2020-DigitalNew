@@ -233,10 +233,10 @@ export function Footer(): React.JSX.Element {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
-    <footer id="footer" style={{ width: "100%", padding: isMobile ? "0 var(--gutter) var(--gutter) var(--gutter)" : "0 var(--gutter) var(--gutter) var(--gutter)", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
+    <footer id="footer" style={{ width: "100%", padding: isMobile ? "0" : "0 var(--gutter) var(--gutter) var(--gutter)", position: "relative", zIndex: 10, boxSizing: "border-box" }}>
       <div style={{ 
         backgroundColor: "#d73a3b", 
-        borderRadius: 24, 
+        borderRadius: isMobile ? 0 : 24, 
         padding: isMobile ? "48px 24px" : "64px 40px", 
         display: "flex", 
         flexDirection: "column", 

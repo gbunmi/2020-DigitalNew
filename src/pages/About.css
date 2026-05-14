@@ -332,11 +332,30 @@
   display: flex;
   justify-content: center;
 }
+.services__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
 .services__row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
   justify-content: center;
+  gap: 16px;
+  flex-wrap: nowrap; /* Force 4x3 layout */
+  width: 100%;
+}
+@media (max-width: 800px) {
+  .services__row {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .services__row::-webkit-scrollbar {
+    display: none;
+  }
 }
 .pill {
   background: var(--white);
@@ -345,6 +364,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .pill__dot {
   width: 12px;

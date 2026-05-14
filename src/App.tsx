@@ -57,7 +57,7 @@ function Navbar(): React.JSX.Element {
         margin: "20px auto"
       }}
     >
-      <div style={{ width: "100%", padding: "8px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", padding: "8px 8px 8px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
           <Link to="/" style={{ textDecoration: "none" }} onClick={() => setIsMobileMenuOpen(false)}>
             <motion.img 

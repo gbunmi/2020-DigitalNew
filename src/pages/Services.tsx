@@ -132,7 +132,7 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
             <h2 className="display-s">{service.title}</h2>
           </div>
           <button 
-            className="btn-primary btn-primary--sm" 
+            className="btn-primary btn-primary--sm desktop-only" 
             type="button"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
@@ -169,6 +169,22 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
             </motion.div>
           ))}
         </div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mobile-only"
+          style={{ marginTop: 24 }}
+        >
+          <button 
+            className="btn-primary btn-primary--sm" 
+            type="button"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            style={{ width: '100%' }}
+          >
+            Learn more
+          </button>
+        </motion.div>
       </div>
       {!isLast && <div className="service__divider" />}
     </div>

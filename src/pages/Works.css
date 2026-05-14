@@ -25,6 +25,12 @@
   --font: 'Instrument Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
+@media (max-width: 800px) {
+  :root {
+    --gutter: 20px;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -220,6 +226,13 @@ a {
   overflow: hidden;
   background: var(--primary);
   flex-shrink: 0;
+  /* Help with border-radius clipping on some mobile browsers */
+  isolation: isolate;
+  transform: translateZ(0);
+}
+.work-card__media > div {
+  width: 100%;
+  height: 100%;
 }
 .work-card__img {
   width: 100%;

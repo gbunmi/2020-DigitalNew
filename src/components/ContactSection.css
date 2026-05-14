@@ -244,7 +244,8 @@
 @media (max-width: 900px) {
   .contact-section {
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 0;
+    gap: 0;
     min-height: auto;
   }
 
@@ -252,6 +253,11 @@
   .contact-section__form-wrapper {
     width: 100%;
     align-self: auto;
+    border-radius: 0;
+  }
+
+  .contact-section__form {
+    border-radius: 0;
   }
 
   .contact-section__hero {

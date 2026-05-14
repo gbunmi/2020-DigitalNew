@@ -2,7 +2,6 @@ import { type FC, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import './About.css';
 import { ContactSection, Footer } from '../components/SharedUI';
-import Partners from '../components/Partners';
 
 // ---- Asset slots: replace with your imports / URLs ---------------------------
 const LOGO_LIGHT_URL = 'https://raw.githubusercontent.com/gbunmi/logolita/main/Frame%2049%20(3).svg'; // big wordmark above the bio
@@ -87,9 +86,19 @@ const ImgSlot: FC<ImgSlotProps> = ({ src, alt, label, className }) =>
     </div>
   );
 
-const Pill: FC<{ children: ReactNode }> = ({ children }) => (
+const SERVICE_COLORS = [
+  '#d73a3b', // Deep Red
+  '#fbbf24', // Amber/Yellow
+  '#f97316', // Orange
+  '#ec4899', // Pink
+  '#dc2626', // Bright Red
+  '#ea580c', // Dark Orange
+  '#f43f5e', // Rose
+];
+
+const Pill: FC<{ children: ReactNode; color?: string }> = ({ children, color }) => (
   <div className="pill">
-    <span className="pill__dot" aria-hidden="true" />
+    <span className="pill__dot" aria-hidden="true" style={{ backgroundColor: color ?? 'var(--primary)' }} />
     <span className="pill__label">{children}</span>
   </div>
 );
@@ -190,25 +199,45 @@ const Stats: FC = () => (
   </section>
 );
 
-const Services: FC = () => (
-  <section className="services">
-    <div className="container">
-      <div className="services__row">
-        {SERVICE_TAGS.map((t, i) => (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05, duration: 0.4 }}
-            key={i}
-          >
-            <Pill key={i}>{t}</Pill>
-          </motion.div>
-        ))}
+const Services: FC = () => {
+  const row1 = SERVICE_TAGS.slice(0, 4);
+  const row2 = SERVICE_TAGS.slice(4, 7);
+
+  return (
+    <section className="services">
+      <div className="container">
+        <div className="services__grid">
+          <div className="services__row services__row--top">
+            {row1.map((t, i) => (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                key={i}
+              >
+                <Pill color={SERVICE_COLORS[i]}>{t}</Pill>
+              </motion.div>
+            ))}
+          </div>
+          <div className="services__row services__row--bottom">
+            {row2.map((t, i) => (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i + 4) * 0.05, duration: 0.4 }}
+                key={i}
+              >
+                <Pill color={SERVICE_COLORS[i + 4]}>{t}</Pill>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const Founder: FC = () => (
   <section className="founder">
@@ -307,7 +336,6 @@ const About: FC = () => (
       <Services />
       <Founder />
       <Bio />
-      <Partners />
       <ContactSection />
       <Footer />
     </main>
