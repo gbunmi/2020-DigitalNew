@@ -140,7 +140,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
       style={{ 
         flexShrink: 0, 
         width: isMobile ? "100%" : 656, 
-        height: isMobile ? 300 : 484, 
+        height: isMobile ? 240 : 400, 
         borderRadius: "24px", 
         overflow: "hidden", 
         backgroundColor: "#c4c4c4",
@@ -192,7 +192,7 @@ function WorkCard({ work }: { work: WorkItem }): React.JSX.Element {
         backgroundColor: "white", 
         borderRadius: "24px", 
         padding: isMobile ? 16 : 24, 
-        height: isMobile ? "auto" : 532, 
+        height: isMobile ? "auto" : 448, 
         display: "flex", 
         flexDirection: isMobile ? "column" : "row",
         gap: isMobile ? 32 : 48, 
