@@ -110,7 +110,7 @@ export const Partners: FC<PartnersProps> = ({
         }}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, amount: 0.1 }}
         className="partners__grid"
       >
         {partners.map((p, i) => (

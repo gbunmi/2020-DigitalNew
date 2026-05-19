@@ -1,5 +1,5 @@
-import { type FC, type ReactNode, useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { type FC, type ReactNode, useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useAnimationFrame, useMotionValue } from 'motion/react';
 import './About.css';
 import { ContactSection, Footer } from '../components/SharedUI';
 
@@ -153,9 +153,10 @@ const Focus: FC = () => {
     <section className="focus" id="services">
     <div className="container">
       <motion.h2 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="display-m focus__title"
       >
         What we focus on
@@ -260,9 +261,10 @@ const Founder: FC = () => (
     <div className="container">
       <div className="founder__divider" />
       <motion.h2 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="display-m founder__title"
       >
         Meet our founder
@@ -342,6 +344,147 @@ const Bio: FC = () => (
   </section>
 );
 
+type TalkRow = { title: string; event: string; year: string };
+
+const TALKS: TalkRow[] = [
+  { title: "Creating Memorable Experiences", event: "Volta, Community Event", year: "2026" },
+  { title: "The Human Side of Tech", event: "Atlantic Tech Summit", year: "2025" },
+  { title: "Responsible AI in the Workplace", event: "Private, Senior Communication Leaders", year: "2025" },
+  { title: "Can You Fix Our UX?", event: "Ignite, Marketing Your Startup", year: "2025" },
+  { title: "The Business of UX", event: "Ignite, Marketing Your Startup", year: "2024" }
+];
+
+const TICKER_IMAGES = [
+  {
+    src: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=800&auto=format&fit=crop',
+    alt: 'Leading a main stage keynote presentation at a global design summit'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop',
+    alt: 'High-attendance presentation auditorium hosting UX strategy talks'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop',
+    alt: 'Bright, premium digital leadership summit event'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop',
+    alt: 'Interactive workshop session on digital product experience'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop',
+    alt: 'Co-designing user interfaces with workshop attendees'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop',
+    alt: 'Jamie Gerrard speaking live on audience panel engagement'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop',
+    alt: 'Keynote presentation slides on design system scalability'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800&auto=format&fit=crop',
+    alt: 'Executive roundtable on responsible product governance'
+  }
+];
+
+const RecentTalks: FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll position of the section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Base auto-scroll value (percentage value from 0 to -50)
+  const baseX = useMotionValue(0);
+
+  // Scroll factor adds up to a subtle shift as the page scrolls
+  const rawScrollFactor = useTransform(scrollYProgress, [0, 1], [0, -10]);
+  const scrollFactor = useSpring(rawScrollFactor, { stiffness: 60, damping: 20, mass: 0.1 });
+
+  // Update baseX on each animation frame for auto movement
+  useAnimationFrame((time, delta) => {
+    // 50% in 50 seconds => 50 / 50000 = 0.001 % per ms
+    const speed = 0.001 * delta;
+    let newX = baseX.get() - speed;
+    if (newX <= -50) {
+      newX = newX + 50;
+    }
+    baseX.set(newX);
+  });
+
+  // Combine baseX and scrollFactor safely, wrapping inside [-50, 0] range
+  const x = useTransform([baseX, scrollFactor], ([latestBaseVal, latestScrollFactor]) => {
+    let total = (latestBaseVal as number) + (latestScrollFactor as number);
+    while (total <= -50) {
+      total += 50;
+    }
+    while (total > 0) {
+      total -= 50;
+    }
+    return `${total}%`;
+  });
+
+  return (
+    <section className="talks" id="talks" ref={containerRef}>
+      <div className="container talks__container-top">
+        <div className="talks__divider" />
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="display-m talks__title"
+        >
+          Recent Talks
+        </motion.h2>
+      </div>
+
+      <div className="talks__ticker-container">
+        <div className="talks__ticker">
+          <motion.div className="talks__ticker-track" style={{ x }}>
+            {TICKER_IMAGES.map((img, i) => (
+              <div className="talks__ticker-item" key={`orig-${i}`}>
+                <img src={img.src} alt={img.alt} referrerPolicy="no-referrer" />
+              </div>
+            ))}
+            {TICKER_IMAGES.map((img, i) => (
+              <div className="talks__ticker-item" key={`dup-${i}`}>
+                <img src={img.src} alt={img.alt} referrerPolicy="no-referrer" />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="container talks__container-bottom">
+        <div className="talks__list">
+          {TALKS.map((row, i) => (
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              whileHover={{ x: 10, color: "var(--primary)" }}
+              className="talk-row"
+            >
+              <div>
+                <div className="talk-row__title">{row.title}</div>
+                <div className="talk-row__event">{row.event}</div>
+              </div>
+              <div className="talk-row__year">{row.year}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // ---- Page -------------------------------------------------------------------
 const About: FC = () => (
   <div className="about-page">
@@ -350,6 +493,7 @@ const About: FC = () => (
       <Focus />
       <Stats />
       <Services />
+      <RecentTalks />
       <Founder />
       <Bio />
       <ContactSection />

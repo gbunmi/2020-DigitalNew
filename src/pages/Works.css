@@ -113,13 +113,14 @@ a {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  transition: filter 160ms ease, transform 160ms ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 .btn-primary:hover {
-  filter: brightness(1.05);
+  background: #c03435;
+  transform: scale(1.05);
 }
 .btn-primary:active {
-  transform: translateY(1px);
+  transform: scale(0.95);
 }
 .btn-primary--lg {
   height: 56px;

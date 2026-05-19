@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as React from "react";
-import { motion, useAnimation } from "motion/react";
+import { motion, useAnimation, useScroll, useTransform, useSpring, useAnimationFrame, useMotionValue } from "motion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Tag, CTAButton, Placeholder, ContactSection, Footer } from "../components/SharedUI";
 import Partners from "../components/Partners";
@@ -263,10 +263,49 @@ export default function Home(): React.JSX.Element {
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
+  const heroScrollRef = useRef<HTMLDivElement>(null);
+
+  // Track scroll position of the hero section
+  const { scrollYProgress } = useScroll({
+    target: heroScrollRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Base auto-scroll value (percentage value from 0 to -50)
+  const heroBaseX = useMotionValue(0);
+
+  // Scroll factor adds up to a subtle shift as the page scrolls
+  const rawHeroScrollFactor = useTransform(scrollYProgress, [0, 1], [0, -10]);
+  const heroScrollFactor = useSpring(rawHeroScrollFactor, { stiffness: 60, damping: 20, mass: 0.1 });
+
+  // Update heroBaseX on each animation frame for auto movement
+  useAnimationFrame((time, delta) => {
+    if (isHeroPaused) return;
+    // 50% in 50 seconds => 50 / 50000 = 0.001 % per ms
+    const speed = 0.001 * delta;
+    let newX = heroBaseX.get() - speed;
+    if (newX <= -50) {
+      newX = newX + 50;
+    }
+    heroBaseX.set(newX);
+  });
+
+  // Combine heroBaseX and heroScrollFactor safely, wrapping inside [-50, 0] range
+  const heroX = useTransform([heroBaseX, heroScrollFactor], ([latestBaseVal, latestScrollFactor]) => {
+    let total = (latestBaseVal as number) + (latestScrollFactor as number);
+    while (total <= -50) {
+      total += 50;
+    }
+    while (total > 0) {
+      total -= 50;
+    }
+    return `${total}%`;
+  });
+
   return (
     <div style={{ fontFamily: font, overflowX: "hidden" }}>
       {/* Hero */}
-      <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "60px 0 80px" : "100px 0 120px", display: "flex", flexDirection: "column", gap: isMobile ? 40 : 80, overflow: "hidden" }}>
+      <section ref={heroScrollRef} style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "60px 0 80px" : "100px 0 120px", display: "flex", flexDirection: "column", gap: isMobile ? 40 : 80, overflow: "hidden" }}>
         <div style={{ display: "flex", padding: "0 var(--gutter)", gap: 10, alignItems: "flex-end", justifyContent: "flex-start", margin: "0 auto", width: "100%" }}>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
@@ -282,7 +321,6 @@ export default function Home(): React.JSX.Element {
         {/* Ticker Section */}
         <div style={{ width: "100%", overflow: "hidden" }}>
           <motion.div
-            className="ticker-animate"
             onMouseEnter={() => setIsHeroPaused(true)}
             onMouseLeave={() => setIsHeroPaused(false)}
             style={{ 
@@ -292,8 +330,7 @@ export default function Home(): React.JSX.Element {
               paddingTop: 24,
               paddingBottom: 12,
               width: "max-content",
-              animationDuration: isMobile ? "20s" : "30s",
-              animationPlayState: isHeroPaused ? "paused" : "running"
+              x: heroX
             }}
             whileHover={{ scale: 0.98, transition: { duration: 0.8 } }}
           >
@@ -385,10 +422,11 @@ export default function Home(): React.JSX.Element {
       <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "80px 0" : "120px 0" }}>
         <div style={{ margin: "0 auto", width: "100%", padding: "0 var(--gutter)", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80 }}>
           <motion.h2 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", textAlign: isMobile ? "left" : "center", margin: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", textAlign: "left", margin: 0 }}
           >
             The Right help at any stage
           </motion.h2>
@@ -411,9 +449,10 @@ export default function Home(): React.JSX.Element {
           <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 32 : 40 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
               <motion.h2 
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "white", margin: 0 }}
               >
                 Who we are
@@ -473,7 +512,8 @@ export default function Home(): React.JSX.Element {
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0 }}
             >
               Featured Works
@@ -484,8 +524,8 @@ export default function Home(): React.JSX.Element {
               </div>
               <Link to="/works">
                 <motion.button 
-                  whileHover={{ scale: 1.02, backgroundColor: "#1e1e1e", color: "white" }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.05, backgroundColor: "#1e1e1e", color: "white" }}
+                  whileTap={{ scale: 0.95 }}
                   style={{ backgroundColor: "transparent", color: "#1e1e1e", border: "2px solid rgba(0,0,0,0.6)", borderRadius: 999, height: 45, display: "flex", alignItems: "center", justifyContent: "center", padding: "12px 16px", fontWeight: 600, fontSize: 16, letterSpacing: -0.32, cursor: "pointer", fontFamily: font, transition: "all 0.2s" }}
                 >
                   See all works
@@ -498,12 +538,13 @@ export default function Home(): React.JSX.Element {
 
       {/* Testimonials */}
       <section style={{ backgroundColor: "#f3f3f3", padding: isMobile ? "80px 0" : "120px 0", display: "flex", flexDirection: "column", gap: isMobile ? 48 : 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", justifyContent: "center", padding: "0 var(--gutter)", margin: "0 auto", width: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "flex-start", padding: "0 var(--gutter)", margin: "0 auto", width: "100%" }}>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0, textAlign: isMobile ? "left" : "center" }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ fontWeight: 700, fontSize: isMobile ? 36 : 56, lineHeight: isMobile ? "40px" : "48px", letterSpacing: -1.68, color: "#1e1e1e", margin: 0, textAlign: "left" }}
           >
             What people say about us
           </motion.h2>

@@ -195,7 +195,7 @@ const Articles: FC = () => (
     <motion.div 
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, amount: 0.1 }}
       variants={{
         visible: {
           transition: {

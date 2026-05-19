@@ -121,10 +121,10 @@ const ServiceSection: FC<ServiceSectionProps> = ({ service, isLast }) => (
     <div className="container">
       <div className="service__inner">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="service__header"
         >
           <div className="service__heading">
